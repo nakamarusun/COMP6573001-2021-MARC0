@@ -1,0 +1,3 @@
+- make sure that streams url in token, so only certain clients are accepted to stream
+- use on_publish to return whether to allow the livestreaming.
+- After video is downloaded, trigger to push to gcp
