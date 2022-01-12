@@ -4,9 +4,10 @@ services:
   stream_handler:
     build: ./streamer
     container_name: stream_handler
-    command: [ "npm", "start" ]
     environment:
       - PORT=80
+    volumes:
+      - recdir:/streamer_module/tmp/rec
   nginx:
     build: ./nginx
     container_name: nginx
@@ -15,3 +16,9 @@ services:
       - "1935:1935"
     depends_on:
       - stream_handler
+    volumes:
+      - recdir:/tmp/rec
+
+# Creates the volume
+volumes:
+  recdir:

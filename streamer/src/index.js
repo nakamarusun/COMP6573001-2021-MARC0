@@ -15,6 +15,11 @@ app.get('/on_play', (req, res) => {
   return res.sendStatus(201);
 })
 
+app.get("save_video", (req, res) => {
+  console.log(req.query);
+  return res.sendStatus(200);
+})
+
 // TODO: Upload to bucket
 
 app.listen(port, () => {
