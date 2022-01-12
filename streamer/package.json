@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.2"
+    "dotenv": "^11.0.0",
+    "express": "^4.17.2",
+    "shelljs": "^0.8.5"
   }
 }
