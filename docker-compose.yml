@@ -12,5 +12,6 @@ services:
     container_name: nginx
     ports:
       - "80:80"
+      - "1935:1935"
     depends_on:
       - stream_handler
