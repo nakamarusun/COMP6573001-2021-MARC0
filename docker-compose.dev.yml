@@ -1,8 +1,10 @@
 # Containing configuration for the google key
-version: "3.9"
+# Currently unused. We used this to inject the service account creds.
+# Now we use kubernetes secret.
+version: "3"
 
 services:
-  stream_handler:
+  stream-handler:
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/streamer_module/gkey.json
     volumes:

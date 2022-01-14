@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o kubernetes/
+    kompose.image-pull-policy: IfNotPresent
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o kubernetes/
+        kompose.image-pull-policy: IfNotPresent
+        kompose.version: 1.26.1 (a9d05d509)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nginx
+    spec:
+      containers:
+        - image: nginxstream
+          imagePullPolicy: IfNotPresent
+          name: nginx
+          ports:
+            - containerPort: 80
+            - containerPort: 1935
+          resources: {}
+          volumeMounts:
+            - mountPath: /tmp/rec
+              name: recdir
+      restartPolicy: Always
+      volumes:
+        - name: recdir
+          persistentVolumeClaim:
+            claimName: recdir
+status: {}
