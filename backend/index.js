@@ -13,8 +13,9 @@ app.use(cors())
 //     }
 // });
 
-let routes = require('./api/routes.js')
-app.use('/', routes.play)
+const routes = require('./api/routes.js')
+app.use('/stream', routes.stream)
+app.use('/user', routes.user)
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT);
