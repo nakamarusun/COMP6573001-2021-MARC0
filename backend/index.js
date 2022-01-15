@@ -6,12 +6,7 @@ const app = express();
 const server = http.createServer(app);
 
 app.use(cors())
-// const io = require("socket.io")(server, {
-//     cors:{
-//         origin: "http://localhost:3000",
-//         methods: ["GET","POST"],
-//     }
-// });
+const io = require("socket.io")(server, {});
 
 const routes = require('./api/routes.js')
 app.use('/stream', routes.stream)

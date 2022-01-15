@@ -12,3 +12,4 @@ router.post('/setup', function(){
 router.post('/note', function(){
   // Write a note to a particular user firestore, this is either an append or a write operation
 })
+module.exports = router
