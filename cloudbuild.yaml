@@ -11,6 +11,9 @@ steps:
     id: Push
     args:
       - "push"
+    # Environment variable has to be here for pushing too.
+    env:
+      - "STREAM_GSTORAGE_NAME=$_STREAM_GSTORAGE_NAME"
   # Finally, we deploy the thing to kubernetes
   - name: "gcr.io/cloud-builders/kubectl"
     id: Deploy
