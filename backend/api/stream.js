@@ -1,13 +1,28 @@
 const express = require('express')
-const firebase = require('../firebase')
+const admin = require('../admin.js')
 const router = express.Router()
-const db = firebase.firestore();
+const db = admin.firestore();
 const auth = require('../middleware/auth')
 
-router.use('/*', auth)
-router.get('/token', function(){
-  // Get user's associated marci uuid here through firebase request
-  // Put the thing in additional claim so that it can later be matched in the stream server
+// Should probably put this in a service layer xd
+const requestStreamToMarci = async (customToken) => {
+  const io = req.app.get('socketio')
+  const marciUUID = await db.collection('UserMarciPairing').doc(customToken.uid).get('UUID')
+  const marciSocket = await db.collection('MarciSockets').doc(marciUUID).get('SocketID')
+  io.to(marciSocket).emit('streamRequest', customToken)
+}
 
-  // How do i communicate with a marci instance?
+router.use('/*', auth)
+router.get('/stream', function(req, res){
+  // Store user uid in the token. This uid will later be used to query firestore to check if marc1 pairing is indeed correct
+  const uid = res.locals.uid  
+  admin
+    .auth()
+    .createCustomToken(uid)
+    .then(requestStreamToMarci)
+    .catch((error) => {
+      console.log('Error when creating token : ', error)
+    })
 })
+
+module.exports = router

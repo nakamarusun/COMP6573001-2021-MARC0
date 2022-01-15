@@ -20,6 +20,9 @@ const recPath = "tmp/rec/";
 app.get('/on_publish', (req, res) => {
   // TODO: Use JOI
   // TODO: do authentication
+  // TODO : Gets the user's uid from the decoded token, do a firebase request to check whether that uid is paired 
+  // with the marci that's making this request 
+
   const { name } = req.query;
   if (name === "marc1")
     return res.sendStatus(201);
