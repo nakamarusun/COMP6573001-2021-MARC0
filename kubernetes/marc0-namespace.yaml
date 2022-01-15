@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: marc0-namespace
+  labels:
+    name: marc0-namespace

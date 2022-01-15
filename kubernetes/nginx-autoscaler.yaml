@@ -2,6 +2,7 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
+  namespace: marc0-namespace
   name: nginx
 spec:
   maxReplicas: 4

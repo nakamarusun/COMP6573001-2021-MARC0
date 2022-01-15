@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: marc0-namespace
   annotations:
     kompose.cmd: kompose convert -o kubernetes/
     kompose.image-pull-policy: IfNotPresent
@@ -27,7 +28,7 @@ spec:
         io.kompose.service: nginx
     spec:
       containers:
-        - image: nginxstream
+        - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1"
           imagePullPolicy: IfNotPresent
           name: nginx
           ports:

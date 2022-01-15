@@ -38,3 +38,6 @@ kubectl apply -f ./kubernetes
 ```bash
 kubectl get services --output wide
 ```
+
+### Recommendations:
+- Live transcoding from .flv format to .mp4 in the streamer pod

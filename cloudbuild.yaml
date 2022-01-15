@@ -1,0 +1,9 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - "compose"
+      - "build"
+      - "--no-cache"
+images:
+  - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1"
+  - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1"

@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: marc0-namespace
   creationTimestamp: null
   labels:
     io.kompose.service: recdir

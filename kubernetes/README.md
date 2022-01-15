@@ -47,8 +47,19 @@ Allows us to add more pods if a pod has too much resource usage to match demand.
 Different from replicas, because replicas are how many fixed amounts of pods
 should exist.
 
+### Namespace
+Namespaces are used to group up resources together.
+
 ### Epic references
 https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#cloud-shell
 https://cloud.google.com/kubernetes-engine/docs/tutorials/gitops-cloud-build#shell
 https://cloud.google.com/kubernetes-engine/docs/tutorials/upgrading-stateful-workload
 https://k8syaml.com/
+
+
+### Nice commands
+
+docker compose build
+kubectl apply -f kubernetes/
+kubectl delete -f kubernetes/
+kubectl edit
