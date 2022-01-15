@@ -4,6 +4,8 @@ steps:
     id: Build
     args:
       - "build"
+    env:
+      - "STREAM_GSTORAGE_NAME=$_STREAM_GSTORAGE_NAME"
   # Then, we push the container to the registry
   - name: docker/compose
     id: Push

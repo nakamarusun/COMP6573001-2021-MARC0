@@ -6,7 +6,7 @@ plane will read the configuration and applies them to all the nodes that it
 controls to match the desired state written in the files. The configuration files
 controls kubernetes object(s) and their state.
 
-### Objects
+### Objects / Resources
 Kubernetes objects controls the state of a pod, what a controller should do,
 should it expose network to others, how much should the pod replicates, should
 a pod replicate to meet resource demand, etc. There are many types of objects

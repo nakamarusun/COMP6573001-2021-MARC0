@@ -10,6 +10,8 @@ services:
       - "80"
     environment:
       - PORT=80
+      # GCP Cloud Storage bucket name to store streams
+      - GCLOUD_STORAGE_NAME=${STREAM_GSTORAGE_NAME}
     volumes:
       - recdir:/streamer_module/tmp/rec
     labels:

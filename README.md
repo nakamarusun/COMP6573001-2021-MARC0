@@ -25,7 +25,7 @@ docker compose build
 
 2. Create a secret for the GCP service accounts
 ```bash
-kubectl create secret generic streamer-key --from-file=stream-key.json=<PATH-TO-SERVICE-ACCOUNT-KEY-IN-PC>.json
+kubectl create secret generic streamer-key -n=marc0-namespace --from-file=stream-key.json=<PATH-TO-SERVICE-ACCOUNT-KEY-IN-PC>.json
 ```
 *To see how this comes into action, look at `kubernetes/stream-handler-deployment.yaml`
 
