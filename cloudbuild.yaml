@@ -1,9 +1,24 @@
 steps:
+  # First, we build all the images from scratch
   - name: gcr.io/cloud-builders/docker
+    id: Build
     args:
       - "compose"
       - "build"
       - "--no-cache"
+  # Then, we push the container to the registry
+  - name: gcr.io/cloud-builders/docker
+    id: Push
+    args:
+      - "compose"
+      - "push"
+  # Finally, we deploy the thing to kubernetes
+  - name: "gcr.io/cloud-builders/kubectl"
+    id: Deploy
+    args:
+      - "apply"
+      - "-f"
+      - "kubernetes/"
 images:
   - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1"
   - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1"
