@@ -7,7 +7,31 @@ const auth = require('../middleware/auth')
 
 router.use(express.json())
 router.use(express.urlencoded({extended : true}))
+router.post('/note', [
+  body('content').escape().isLength({min : 3})
+] , function(req, res){
+  // Write a note to a particular user firestore, this is either an append or a write operation
+  const userUID = res.locals.uid
+  const inputErrors = validationResult(req);
+  if(!inputErrors.isEmpty()){
+    return res.status(400).json({ errors : inputErrors.array() });
+  }
+  const noteRef = db.collection('UserNotes').doc('yomama')
 
+  noteRef
+    .get()
+    .then((noteSnapshot => {
+      if(noteSnapshot.isEmpty) {
+        noteRef.update({
+          note : admin.firestore.FieldValue.arrayUnion(req.body.content)
+        })
+      } else{
+        noteRef.set({note : [req.body.content]})
+      }
+    })).then(() => {
+      return res.sendStatus(200)
+    })
+})
 router.use('/*', auth)
 router.post('/setup', [
   body('marciUID').exists()
