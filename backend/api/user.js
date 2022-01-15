@@ -8,7 +8,7 @@ const auth = require('../middleware/auth')
 router.use(express.json())
 router.use(express.urlencoded({extended : true}))
 router.post('/note', [
-  body('content').escape().isLength({min : 3})
+  body('content').escape()
 ] , function(req, res){
   // Write a note to a particular user firestore, this is either an append or a write operation
   const userUID = res.locals.uid
@@ -16,7 +16,7 @@ router.post('/note', [
   if(!inputErrors.isEmpty()){
     return res.status(400).json({ errors : inputErrors.array() });
   }
-  const noteRef = db.collection('UserNotes').doc('yomama')
+  const noteRef = db.collection('UserNotes').doc(userUID)
 
   noteRef
     .get()

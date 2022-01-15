@@ -13,25 +13,13 @@ router.get('/token', function(req, res){
     .createCustomToken(uid)
     .then((customToken) => {
       // Sends the token to a marci instance here
+      // TODO : communicate with marci when token is created and send that token
       console.log(customToken)
     })
     .catch((error) => {
       console.log('Error when creating token : ', error)
     })
 
-  
-})
-router.get('/testverify', function(){  
-  let token = ''
-  admin
-    .auth()
-    .verifyIdToken(token)
-    .then((decodedToken) => {
-      const uid = decodedToken.uid
-    })
-    .catch((error) => {
-      console.log(error)
-    })
 })
 
 module.exports = router
