@@ -2,11 +2,15 @@ const admin = require('../admin')
 const db = admin.firestore()
 module.exports = function(io, socket){
   const socketID = socket.id
-  socket.on('marci-activate', function(marciUUID){
-    // Do firebase request here
+  socket.on('marciActivate', function(marciUUID){
     const marciSocketRef = db.collection('MarciSockets').doc(marciUUID)
-    marciSocketRef.set({socketID : socketID}).then(
-      io.to(socketID).emit('marci-detected')
+    marciSocketRef.set({socketID : socketID}).then(() =>{
+        io.to(socketID).emit('marciDetected')
+        console.log(`Marci instance connected : ${marciUUID}`)
+      }
     )
+  })
+  socket.on('streamFailed', function(){
+    // How to talk to frontend here, gatau
   })
 }

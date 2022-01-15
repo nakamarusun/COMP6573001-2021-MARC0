@@ -18,6 +18,7 @@ const onConnection = function(socket) {
   registerMarciHandler(io, socket)
 }
 io.on('connection', onConnection)
+app.set('socketio', io)
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT);
