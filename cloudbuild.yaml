@@ -5,7 +5,6 @@ steps:
     args:
       - "compose"
       - "build"
-      - "--no-cache"
   # Then, we push the container to the registry
   - name: gcr.io/cloud-builders/docker
     id: Push
