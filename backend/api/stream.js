@@ -19,7 +19,7 @@ router.get('/token', function(req, res){
       console.log('Error when creating token : ', error)
     })
 
-  // How do i communicate with a marci instance?
+  
 })
 router.get('/testverify', function(){  
   let token = ''
