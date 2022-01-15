@@ -1,4 +1,4 @@
-const firebase = require("../firebase");
+const admin = require("../admin");
 
 function authenticated(req, res, next){
     const headerToken = req.headers.authorization;
@@ -11,7 +11,7 @@ function authenticated(req, res, next){
     }
 
     const token = headerToken.split(" ")[1];
-    firebase
+    admin
       .auth()
       .verifyIdToken(token)
       .then((decodedToken) => {
