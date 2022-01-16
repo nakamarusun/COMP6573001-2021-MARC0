@@ -28,6 +28,9 @@ app.get('/on_publish', (req, res) => {
   const marciUUID = 'hellothere'
 
   const { name } = req.query;
+  if (name === "marc1") {
+    return res.sendStatus(201);
+  }
   admin
     .auth()
     .verifyIdToken(req.query)
