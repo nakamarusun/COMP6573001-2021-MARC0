@@ -16,11 +16,21 @@ spec:
         service: backend
     spec:
       containers:
-        - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1"
+        - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1+1"
           imagePullPolicy: Always
           name: backend
           ports:
             - containerPort: 5000
           resources: {}
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/stream-key.json
+          volumeMounts:
+            - name: cred-key
+              mountPath: /var/secrets/google
       restartPolicy: Always
+      volumes:
+        - name: cred-key
+          secret:
+            secretName: streamer-key
 status: {}

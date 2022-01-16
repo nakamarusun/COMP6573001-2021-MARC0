@@ -16,7 +16,7 @@ spec:
     matchLabels:
       io.kompose.service: nginx
   strategy:
-    type: Recreate
+    type: RollingUpdate
   template:
     metadata:
       annotations:
