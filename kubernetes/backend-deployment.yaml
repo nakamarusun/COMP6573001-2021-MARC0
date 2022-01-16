@@ -11,6 +11,9 @@ spec:
   strategy:
     type: RollingUpdate
   template:
+    metadata:
+      labels:
+        service: backend
     spec:
       containers:
         - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1"
