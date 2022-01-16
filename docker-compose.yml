@@ -22,7 +22,7 @@ services:
   backend:
     build: ./backend
     container_name: backend-cont
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_3
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_4
     ports:
       - "80:5000"
   nginx:
