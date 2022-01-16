@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useRef, useState } from 'react';
 import { useAuth } from '../services/firebase/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const ForgetPasswordCard = () => {
 
@@ -19,6 +20,8 @@ const ForgetPasswordCard = () => {
             alert('Check your email for further instructions')
             setError('')
             setLoading(false)
+            return <Navigate to="/" />;
+
         } catch(err) {
             setError('Please enter a registered email')
             console.log(err)

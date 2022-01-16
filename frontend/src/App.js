@@ -4,8 +4,8 @@ import { AuthProvider } from "./services/firebase/AuthContext";
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
+    <AuthProvider>
+      <Router>
         <Routes>
           <Route path="/mainmenu"
             element={
@@ -31,10 +31,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgetpassword" element={<ForgetPassword />} />
           <Route path="/control" element={<Control />} />
-
         </Routes>
-      </AuthProvider>
-    </Router>
+      </Router>
+    </AuthProvider>
+
   );
 }
 

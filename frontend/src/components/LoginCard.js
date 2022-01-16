@@ -1,10 +1,12 @@
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { useRef, useState } from 'react';
 import { useAuth } from '../services/firebase/AuthContext';
 
 const LoginCard = (props) => {
 
     let isRegister = props.isRegister;
+    const navigate = useNavigate()
 
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -30,7 +32,7 @@ const LoginCard = (props) => {
             alert('Logged in successfully')
             setError('')
             setLoginLoading(false)
-            return <Navigate to="/pairMarc1" />;
+            navigate("/pairMarc1")
         } catch (err) {
             setError('Invalid email or password')
             console.log(err)
@@ -62,7 +64,7 @@ const LoginCard = (props) => {
             alert('Signed up successfully')
             setError('')
             setRegisterLoading(false)
-            return <Navigate to="/pairMarc1" />;
+            navigate("/pairMarc1")
         } catch (err) {
             setError('Failed to create an account')
             console.log(err)
@@ -74,13 +76,18 @@ const LoginCard = (props) => {
     return (
         <div className="w-full px-6 py-8 shadow-md rounded ">
             <form id="loginForm" onSubmit={isRegister ? (e) => handleRegister(e) : (e) => handleLogin(e)} className="flex flex-col items-center justify-center">
+                {/* email */}
                 <input className="w-full shadow-sm p-2 ring-1 ring-gray-200 rounded mb-5" type="text" ref={emailRef} placeholder="&#xf199;  Email address" required />
+                {/* username */}
                 {isRegister && <input type="text" className='w-full shadow-sm p-2 ring-1 ring-gray-200 rounded mb-5' ref={usernameRef} placeholder="&#xF007;  Username" required />}
+                {/* password */}
                 <input className="w-full shadow-sm p-2 ring-1 ring-gray-200 rounded" type="password" ref={passwordRef} placeholder="&#xF023;  Password" required />
-                {props.isRegister && <input className="w-full shadow-sm p-2 ring-1 ring-gray-200 rounded my-6" type="password" ref={confirmPasswordRef} placeholder="&#xf01e;  Confirm Password" required />}
-                {error && <div className="mb-3 -mt-3">{error}</div>}
+                {/* confirm password */}
+                {isRegister && <input className="w-full shadow-sm p-2 ring-1 ring-gray-200 rounded mt-6" type="password" ref={confirmPasswordRef} placeholder="&#xf01e;  Confirm Password" required />}
+                {/* error */}
+                {error && <div className="mt-3">{error}</div>}
                 {!isRegister && <Link className='text-french-sky-blue my-3' to="/">Forgot your password?</Link>}
-                {isRegister ? <button disabled={registerLoading} className='w-full bg-blue-crayola text-cultured p-2 rounded-md' type='submit' value="LSign Up">Sign Up</button> : <button disabled={loginLoading} className='w-full bg-blue-crayola text-cultured p-2 rounded-md' type='submit' value="Login">Sign In</button>}
+                {isRegister ? <button disabled={registerLoading} className='w-full bg-blue-crayola text-cultured p-2 rounded-md mt-3' type='submit' value="LSign Up">Sign Up</button> : <button disabled={loginLoading} className='w-full bg-blue-crayola text-cultured p-2 rounded-md' type='submit' value="Login">Sign In</button>}
                 {!isRegister ? <p className='mt-3 text-xs'>Don't have an account yet? <Link to="/register" disabled={loginLoading} className='underline'>Register</Link></p> : <p className='mt-3 text-xs'>Already have an account? <Link to="/" disabled={registerLoading} className='underline'>Sign in</Link></p>}
             </form>
 
