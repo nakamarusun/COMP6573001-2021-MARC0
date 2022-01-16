@@ -4,6 +4,7 @@ steps:
     id: Build
     args:
       - "build"
+      - "--no-cache"
   # Then, we push the container to the registry
   - name: docker/compose
     id: Push
