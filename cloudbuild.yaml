@@ -4,16 +4,11 @@ steps:
     id: Build
     args:
       - "build"
-    env:
-      - "STREAM_GSTORAGE_NAME=$_STREAM_GSTORAGE_NAME"
   # Then, we push the container to the registry
   - name: docker/compose
     id: Push
     args:
       - "push"
-    # Environment variable has to be here for pushing too.
-    env:
-      - "STREAM_GSTORAGE_NAME=$_STREAM_GSTORAGE_NAME"
   # Finally, we deploy the thing to kubernetes
   - name: "gcr.io/cloud-builders/kubectl"
     id: Deploy
@@ -25,6 +20,7 @@ steps:
       - 'CLOUDSDK_COMPUTE_REGION=$_CLOUDSDK_COMPUTE_REGION'
       - 'CLOUDSDK_COMPUTE_ZONE=$_CLOUDSDK_COMPUTE_ZONE'
       - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLOUDSDK_CONTAINER_CLUSTER'
+      - "STREAM_GSTORAGE_NAME=$_STREAM_GSTORAGE_NAME"
 
 images:
   - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1"
