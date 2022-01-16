@@ -28,21 +28,25 @@ app.get('/on_publish', (req, res) => {
   const marciUUID = 'hellothere'
 
   const { name } = req.query;
-  admin
-    .auth()
-    .verifyIdToken(req.query)
-    .then((verifiedToken) => {
-      const uid = verifiedToken.uid;
-      const dbMarciUUID = db.collection('UserMarciPairing').doc(uid).get('UUID')
-      if(dbMarciUUID === marciUUID){
-        console.log('all systems green, ping back to marci now')
-        res.sendStatus(201);
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-    
+  // Name is for testing purposes, for later implementation user will need to be authenticated first before being able to stream.
+  if(name === 'marc1'){
+    res.sendStatus(201);
+  } else{
+    admin
+      .auth()
+      .verifyIdToken(req.query)
+      .then((verifiedToken) => {
+        const uid = verifiedToken.uid;
+        const dbMarciUUID = db.collection('UserMarciPairing').doc(uid).get('UUID')
+        if(dbMarciUUID === marciUUID){
+          console.log('all systems green, ping back to marci now')
+          res.sendStatus(201);
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
   return res.sendStatus(400);
 })
 
