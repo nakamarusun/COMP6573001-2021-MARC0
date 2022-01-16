@@ -56,6 +56,9 @@ https://cloud.google.com/kubernetes-engine/docs/tutorials/gitops-cloud-build#she
 https://cloud.google.com/kubernetes-engine/docs/tutorials/upgrading-stateful-workload
 https://k8syaml.com/
 
+*Confused env:
+https://stackoverflow.com/questions/56003777/how-to-pass-environment-variable-in-kubectl-deployment
+https://humanitec.com/blog/handling-environment-variables-with-kubernetes
 
 ### Nice commands
 

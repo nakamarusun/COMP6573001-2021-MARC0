@@ -34,10 +34,10 @@ spec:
             # Puts the stream key into the container in env
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/stream-key.json
-            # Puts the google bucket name in the server. Will be injected through
-            # environment variable in cloudbuild.yaml
-            - name: GCLOUD_STORAGE_NAME
-              value: $(STREAM_GSTORAGE_NAME)
+          # Loads all the environment variables from the template marc0-config
+          envFrom:
+            - configMapRef:
+                name: marc0-config
           image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1"
           imagePullPolicy: IfNotPresent
           name: stream-handler
