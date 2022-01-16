@@ -7,6 +7,7 @@ const auth = require('../middleware/auth')
 
 router.use(express.json())
 router.use(express.urlencoded({extended : true}))
+router.use('/*', auth)
 router.post('/note', [
   body('content').escape()
 ] , function(req, res){
@@ -32,7 +33,6 @@ router.post('/note', [
       return res.sendStatus(200)
     })
 })
-router.use('/*', auth)
 router.post('/setup', [
   body('marciUID').exists()
 ], async function(req, res){

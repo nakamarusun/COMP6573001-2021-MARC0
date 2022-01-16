@@ -4,10 +4,7 @@ const router = express.Router()
 const db = admin.firestore();
 const auth = require('../middleware/auth')
 
-// Should probably put this in a service layer xd
-const requestStreamToMarci = 
-
-// router.use('/*', auth)
+router.use('/*', auth)
 router.get('/stream', function(req, res){
   // Store user uid in the token. This uid will later be used to query firestore to check if marc1 pairing is indeed correct
   const uid = 'ow3St4E5LURNmmTozo6sUJ0E7QC2'  

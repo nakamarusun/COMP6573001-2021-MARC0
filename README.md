@@ -25,23 +25,23 @@ needs.
 docker compose build
 ```
 
-2. Create a secret for the GCP service accounts
+2. Apply relevant environment variables (see `kubernetes/configmap.yaml.template`)
+```bash
+envsubst < kubernetes/configmap.yaml.template > kubernetes/configmap.yaml
+```
+
+3. Apply all the yamls to your kubernetes cluster
+```bash
+kubectl apply -f ./kubernetes
+```
+
+4. Create a secret for the GCP service accounts
 ```bash
 kubectl create secret generic streamer-key -n=marc0-namespace --from-file=stream-key.json=<PATH-TO-SERVICE-ACCOUNT-KEY-IN-PC>.json
 ```
 *To see how this comes into action, look at `kubernetes/stream-handler-deployment.yaml`
 
-3. Apply relevant environment variables (see `kubernetes/configmap.yaml.template`)
-```bash
-envsubst < kubernetes/configmap.yaml.template > kubernetes/configmap.yaml
-```
-
-4. Apply all the yamls to your kubernetes cluster
-```bash
-kubectl apply -f ./kubernetes
-```
-
-4. Access your deployment by getting the external IP from the `nginx-loadbalancer.yaml` with this command
+5. Access your deployment by getting the external IP from the `nginx-loadbalancer.yaml` with this command
 ```bash
 kubectl get services --output wide
 ```
