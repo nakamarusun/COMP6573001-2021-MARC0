@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: marc0-namespace
+  name: peerjs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: peerjs
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service: peerjs
+    spec:
+      containers:
+        - image: "peerjs/peerjs-server"
+          imagePullPolicy: Always
+          name: peerjs
+          ports:
+            - containerPort: 9003
+          resources: {}
+          args:
+            - "--port"
+            - "9003"
+            - "--path"
+            - "marc0webrtc"
+      restartPolicy: Always
+status: {}

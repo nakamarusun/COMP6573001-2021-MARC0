@@ -6,6 +6,8 @@ if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
   const serviceAccount = require("./config/service_account.json");
   admin.initializeApp({
     credential : admin.credential.cert(serviceAccount)});
+} else {
+  admin.initializeApp();
 }
 
 module.exports = admin;

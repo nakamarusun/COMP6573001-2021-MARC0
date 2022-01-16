@@ -12,3 +12,6 @@ spec:
     - name: rtmp
       port: 1935
       targetPort: 1935
+    - name: peerjs
+      port: 9003
+      targetPort: 9003
