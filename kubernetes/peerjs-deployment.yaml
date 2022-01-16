@@ -8,12 +8,14 @@ spec:
   selector:
     matchLabels:
       service: peerjs
+      loadbalance: external
   strategy:
     type: RollingUpdate
   template:
     metadata:
       labels:
         service: peerjs
+        loadbalance: external
     spec:
       containers:
         - image: "peerjs/peerjs-server"
