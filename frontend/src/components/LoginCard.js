@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import React, { useRef, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom'
+import { useRef, useState } from 'react';
 import { useAuth } from '../services/firebase/AuthContext';
 
 const LoginCard = (props) => {
@@ -17,39 +17,38 @@ const LoginCard = (props) => {
     //  for sign up
     const confirmPasswordRef = useRef()
     const usernameRef = useRef()
-    const { signup, currentUser } = useAuth()
+    const { signup } = useAuth()
     const [registerLoading, setRegisterLoading] = useState(false)
     const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     async function handleLogin(e) {
         e.preventDefault()
-        console.log('cum1')
         try {
             setError('')
             setLoginLoading(true)
             await signin(emailRef.current.value, passwordRef.current.value)
             alert('Logged in successfully')
             setError('')
-        } catch {
+            setLoginLoading(false)
+            return <Navigate to="/pairMarc1" />;
+        } catch (err) {
             setError('Invalid email or password')
+            console.log(err)
+            setLoginLoading(false)
         }
-        setLoginLoading(false)
     }
 
     async function handleRegister(e) {
         e.preventDefault()
-        console.log('cum')
 
-        // check if password is in correct format
         if (!emailRef.current.value.match(emailRegEx)) {
             return setError('Invalid email format')
         }
-        // check if password is atleast 6 length
+
         if (passwordRef.current.value.length < 6) {
             return setError('Password should be at least 6 characters')
         }
 
-        // check if confirmPassword field is the same as password field
         if (passwordRef.current.value !==
             confirmPasswordRef.current.value) {
             return setError('Passwords do not match')
@@ -58,15 +57,18 @@ const LoginCard = (props) => {
         try {
             setError('')
             setRegisterLoading(true)
-            // call signup function from firebase
             await signup(emailRef.current.value, passwordRef.current.value,
                 usernameRef.current.value)
             alert('Signed up successfully')
             setError('')
+            setRegisterLoading(false)
+            return <Navigate to="/pairMarc1" />;
         } catch (err) {
-            setError(err)
+            setError('Failed to create an account')
+            console.log(err)
+            setRegisterLoading(false)
         }
-        setRegisterLoading(false)
+        
     }
 
     return (
@@ -76,13 +78,10 @@ const LoginCard = (props) => {
                 {isRegister && <input type="text" className='w-full shadow-sm p-2 ring-1 ring-gray-200 rounded mb-5' ref={usernameRef} placeholder="&#xF007;  Username" required />}
                 <input className="w-full shadow-sm p-2 ring-1 ring-gray-200 rounded" type="password" ref={passwordRef} placeholder="&#xF023;  Password" required />
                 {props.isRegister && <input className="w-full shadow-sm p-2 ring-1 ring-gray-200 rounded my-6" type="password" ref={confirmPasswordRef} placeholder="&#xf01e;  Confirm Password" required />}
-                {error && <div className="mt-3">{error}</div>}
+                {error && <div className="mb-3 -mt-3">{error}</div>}
                 {!isRegister && <Link className='text-french-sky-blue my-3' to="/">Forgot your password?</Link>}
                 {isRegister ? <button disabled={registerLoading} className='w-full bg-blue-crayola text-cultured p-2 rounded-md' type='submit' value="LSign Up">Sign Up</button> : <button disabled={loginLoading} className='w-full bg-blue-crayola text-cultured p-2 rounded-md' type='submit' value="Login">Sign In</button>}
                 {!isRegister ? <p className='mt-3 text-xs'>Don't have an account yet? <Link to="/register" disabled={loginLoading} className='underline'>Register</Link></p> : <p className='mt-3 text-xs'>Already have an account? <Link to="/" disabled={registerLoading} className='underline'>Sign in</Link></p>}
-                
-                
-
             </form>
 
         </div>

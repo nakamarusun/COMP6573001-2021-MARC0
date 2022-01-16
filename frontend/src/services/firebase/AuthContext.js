@@ -1,9 +1,9 @@
-// import react, firebase
-import React, { useContext, useEffect, useState } from 'react'
-import { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from './firebase-config'
+import { createContext, useContext, useEffect, useState } from 'react';
+import { auth, db } from './firebase-config';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from 'firebase/auth';
+import { doc, setDoc} from 'firebase/firestore';
 
-// create context
-const AuthContext = React.createContext()
+const AuthContext = createContext()
 
 // functions for firebase
 export function AuthProvider({ children }) {
@@ -12,10 +12,9 @@ export function AuthProvider({ children }) {
 
     // sign up
     function signup(email, password, name) {
-        console.log('bruh')
         return createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                return db.collection('users').doc(userCredential.user.uid).set({
+                setDoc(doc(db, "UserNotes", userCredential.user.uid), {
                     username: name
                 })
             })
@@ -66,7 +65,6 @@ export function AuthProvider({ children }) {
     )
 }
 
-// export context
 export function useAuth() {
     return useContext(AuthContext)
 }
