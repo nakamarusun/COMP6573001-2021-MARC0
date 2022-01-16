@@ -4,22 +4,27 @@ const router = express.Router()
 const db = admin.firestore();
 const auth = require('../middleware/auth')
 
-// Should probably put this in a service layer xd
-const requestStreamToMarci = async (customToken) => {
-  const io = req.app.get('socketio')
-  const marciUUID = await db.collection('UserMarciPairing').doc(customToken.uid).get('UUID')
-  const marciSocket = await db.collection('MarciSockets').doc(marciUUID).get('SocketID')
-  io.to(marciSocket).emit('streamRequest', customToken)
-}
-
 router.use('/*', auth)
 router.get('/stream', function(req, res){
   // Store user uid in the token. This uid will later be used to query firestore to check if marc1 pairing is indeed correct
-  const uid = res.locals.uid  
+  const uid = 'ow3St4E5LURNmmTozo6sUJ0E7QC2'  
   admin
     .auth()
     .createCustomToken(uid)
-    .then(requestStreamToMarci)
+    .then(async (customToken) => {
+        const io = req.app.get('socketio')
+        let marciUUID = await db.collection('UserMarciPairing').doc(uid).get('UUID')
+        marciUUID = (marciUUID.data().UUID)
+        let marciSocketID = await db.collection('MarciSockets').doc(marciUUID).get('socketID')
+        marciSocketID = (marciSocketID.data().socketID)
+
+        io.to(marciSocketID).emit('streamRequest', customToken)
+        const marciSocket = io.sockets.sockets.get(marciSocketID) 
+        marciSocket.once('streamStatus', (statusCode) => {
+          res.sendStatus(statusCode)
+        })
+      } 
+    )
     .catch((error) => {
       console.log('Error when creating token : ', error)
     })

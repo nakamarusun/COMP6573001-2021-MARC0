@@ -1,14 +1,9 @@
 // import react, firebase
 import React, { useContext, useEffect, useState } from 'react'
-import { auth, db } from './firebase-config'
+import { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from './firebase-config'
 
 // create context
 const AuthContext = React.createContext()
-
-// export context
-export function useAuth() {
-    return useContext(AuthContext)
-}
 
 // functions for firebase
 export function AuthProvider({ children }) {
@@ -17,39 +12,45 @@ export function AuthProvider({ children }) {
 
     // sign up
     function signup(email, password, name) {
-        return auth.createUserWithEmailAndPassword(email, password).then(cred => {
-            return db.collection('users').doc(cred.user.uid).set({
-                username: name
+        console.log('bruh')
+        return createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                return db.collection('users').doc(userCredential.user.uid).set({
+                    username: name
+                })
             })
-        })
+            .catch((err) => {
+                console.log(err.code);
+                console.log(err.message);
+            });
     }
+
 
     // sign in
     function signin(email, password) {
-        return auth.signInWithEmailAndPassword(email, password)
+        return signInWithEmailAndPassword(auth, email, password)
     }
 
     // sign out
     function signout() {
-        return auth.signOut()
+        return signOut(auth)
     }
 
     // reset password
-    function resetPassword(email){
-        return auth.sendPasswordResetEmail(email);
+    function resetPassword(email) {
+        return sendPasswordResetEmail(auth, email);
     }
 
     // to do after render
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
+        const unsubscribe = onAuthStateChanged(auth, user => {
             setCurrentUser(user)
             setLoading(false)
         })
 
         return unsubscribe
     }, [])
- 
-    // set constants
+
     const value = {
         currentUser,
         signup,
@@ -58,10 +59,14 @@ export function AuthProvider({ children }) {
         resetPassword
     }
 
-    // to put in App.js html, import to all children
     return (
         <AuthContext.Provider value={value}>
             {!loading && children}
         </AuthContext.Provider>
     )
+}
+
+// export context
+export function useAuth() {
+    return useContext(AuthContext)
 }

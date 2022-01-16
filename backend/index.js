@@ -10,7 +10,7 @@ app.use(cors())
 const io = require("socket.io")(server, {});
 
 const routes = require('./api/routes.js')
-app.use('/stream', routes.stream)
+app.use('/api', routes.stream)
 app.use('/user', routes.user)
 
 // Attach listeners when someone connects
