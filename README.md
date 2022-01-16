@@ -51,7 +51,8 @@ When pushing new deployments, if the yaml file does not change, it will not
 update the existing pods. To property do this automatically, one way to do it
 is to have multiple repositories for each images. Or, one can detect automatically
 which image changes. Another way is to change the versioning manually in the yamls
-(Which is done, by changing the build number at the end).
+and docker compose file
+(Which is done by changing the build number at the end).
 
 ### Recommendations:
 - Live transcoding from .flv format to .mp4 in the streamer pod

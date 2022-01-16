@@ -5,7 +5,7 @@ services:
     build: ./streamer
     container_name: stream-handler
     # Image name is important so that we kompose can know which image to run for
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1+2
     ports:
       - "80"
     environment:
@@ -22,7 +22,7 @@ services:
   backend:
     build: ./backend
     container_name: backend-cont
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1+2
     ports:
       - "80:5000"
   nginx:
@@ -32,7 +32,7 @@ services:
       - "80:80"
       - "1935:1935"
     # Image name is important so that we kompose can know which image to run for
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1+1
     depends_on:
       - stream-handler
     volumes:
