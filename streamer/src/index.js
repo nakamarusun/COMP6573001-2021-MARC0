@@ -4,6 +4,8 @@ const express = require('express')
 const shelljs = require("shelljs")
 const path = require("path")
 const { Storage } = require('@google-cloud/storage');
+const admin = require('./admin')
+const db = admin.firestore()
 
 // Express app
 const app = express()
@@ -23,9 +25,24 @@ app.get('/on_publish', (req, res) => {
   // TODO : Gets the user's uid from the decoded token, do a firebase request to check whether that uid is paired 
   // with the marci that's making this request 
 
+  const marciUUID = 'hellothere'
+
   const { name } = req.query;
-  if (name === "marc1")
-    return res.sendStatus(201);
+  admin
+    .auth()
+    .verifyIdToken(req.query)
+    .then((verifiedToken) => {
+      const uid = verifiedToken.uid;
+      const dbMarciUUID = db.collection('UserMarciPairing').doc(uid).get('UUID')
+      if(dbMarciUUID === marciUUID){
+        console.log('all systems green, ping back to marci now')
+        res.sendStatus(201);
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    
   return res.sendStatus(400);
 })
 
