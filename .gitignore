@@ -131,3 +131,6 @@ dist
 
 # Bad practice but we're on crunch xd
 service_account.json
+
+# xd
+kubernetes/configmap.yaml

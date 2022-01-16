@@ -1,0 +1,39 @@
+steps:
+  # First, we build all the images from scratch
+  - name: docker/compose
+    id: Build
+    args:
+      - "build"
+      - "--no-cache"
+  # Then, we push the container to the registry
+  - name: docker/compose
+    id: Push
+    args:
+      - "push"
+  # Create configuration file for env. Bash is running on alpine linux so it's light
+  - name: bash
+    id: Make ConfigMap
+    args:
+      - -c
+      - |
+        apk add gettext \
+        && envsubst < kubernetes/configmap.yaml.template \
+        > kubernetes/configmap.yaml \
+        && cat kubernetes/configmap.yaml
+    env:
+      - "GCLOUD_STORAGE_NAME=$_STREAM_GSTORAGE_NAME"
+  # Finally, we deploy the thing to kubernetes
+  - name: "gcr.io/cloud-builders/kubectl"
+    id: Deploy
+    args:
+      - "apply"
+      - "-f"
+      - "kubernetes/"
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=$_CLOUDSDK_COMPUTE_REGION'
+      - 'CLOUDSDK_COMPUTE_ZONE=$_CLOUDSDK_COMPUTE_ZONE'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLOUDSDK_CONTAINER_CLUSTER'
+
+images:
+  - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1"
+  - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1"

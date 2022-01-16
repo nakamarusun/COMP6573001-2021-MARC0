@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: marc0-namespace
   annotations:
     kompose.cmd: kompose convert -o kubernetes/
-    kompose.image-pull-policy: IfNotPresent
+    kompose.image-pull-policy: Always
     kompose.version: 1.26.1 (a9d05d509)
   creationTimestamp: null
   labels:
@@ -20,7 +21,7 @@ spec:
     metadata:
       annotations:
         kompose.cmd: kompose convert -o kubernetes/
-        kompose.image-pull-policy: IfNotPresent
+        kompose.image-pull-policy: Always
         kompose.version: 1.26.1 (a9d05d509)
       creationTimestamp: null
       labels:
@@ -33,8 +34,12 @@ spec:
             # Puts the stream key into the container in env
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/stream-key.json
-          image: stream-handler
-          imagePullPolicy: IfNotPresent
+          # Loads all the environment variables from the template marc0-config
+          envFrom:
+            - configMapRef:
+                name: marc0-config
+          image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1"
+          imagePullPolicy: Always
           name: stream-handler
           ports:
             - containerPort: 80

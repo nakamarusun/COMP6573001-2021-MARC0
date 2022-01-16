@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: marc0-namespace
   creationTimestamp: null
   labels:
     io.kompose.service: recdir
@@ -10,5 +11,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 100Mi
+      storage: 3000Mi
 status: {}

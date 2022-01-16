@@ -6,7 +6,7 @@ plane will read the configuration and applies them to all the nodes that it
 controls to match the desired state written in the files. The configuration files
 controls kubernetes object(s) and their state.
 
-### Objects
+### Objects / Resources
 Kubernetes objects controls the state of a pod, what a controller should do,
 should it expose network to others, how much should the pod replicates, should
 a pod replicate to meet resource demand, etc. There are many types of objects
@@ -47,8 +47,22 @@ Allows us to add more pods if a pod has too much resource usage to match demand.
 Different from replicas, because replicas are how many fixed amounts of pods
 should exist.
 
+### Namespace
+Namespaces are used to group up resources together.
+
 ### Epic references
 https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#cloud-shell
 https://cloud.google.com/kubernetes-engine/docs/tutorials/gitops-cloud-build#shell
 https://cloud.google.com/kubernetes-engine/docs/tutorials/upgrading-stateful-workload
 https://k8syaml.com/
+
+*Confused env:
+https://stackoverflow.com/questions/56003777/how-to-pass-environment-variable-in-kubectl-deployment
+https://humanitec.com/blog/handling-environment-variables-with-kubernetes
+
+### Nice commands
+
+docker compose build
+kubectl apply -f kubernetes/
+kubectl delete -f kubernetes/
+kubectl edit
