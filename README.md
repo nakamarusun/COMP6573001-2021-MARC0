@@ -17,6 +17,8 @@ files are generated automatically from the docker-compose.yml file using
 `kompose`. After generating the kubernetes files, we modify it to suit our
 needs.
 
+**all of marc0 resources use the marc0-namespace namespace.**
+
 ### Usage:
 1. Create all the images from all the dockerfiles so its available locally
 ```bash
@@ -29,7 +31,12 @@ kubectl create secret generic streamer-key -n=marc0-namespace --from-file=stream
 ```
 *To see how this comes into action, look at `kubernetes/stream-handler-deployment.yaml`
 
-3. Apply all the yamls to your kubernetes cluster
+3. Apply relevant environment variables (see `kubernetes/configmap.yaml.template`)
+```bash
+envsubst < kubernetes/configmap.yaml.template > kubernetes/configmap.yaml
+```
+
+4. Apply all the yamls to your kubernetes cluster
 ```bash
 kubectl apply -f ./kubernetes
 ```

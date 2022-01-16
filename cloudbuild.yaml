@@ -17,7 +17,8 @@ steps:
       - |
         apk add gettext \
         && envsubst < kubernetes/configmap.yaml.template \
-        > kubernetes/configmap.yaml
+        > kubernetes/configmap.yaml \
+        && cat kubernetes/configmap.yaml
     env:
       - "GCLOUD_STORAGE_NAME=$_STREAM_GSTORAGE_NAME"
   # Finally, we deploy the thing to kubernetes
