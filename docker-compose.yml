@@ -16,7 +16,15 @@ services:
       - recdir:/streamer_module/tmp/rec
     labels:
       # Very important. Without this, it won't be able to pull local images
+      # However, the current setting in kubernetes/ is now Always, so that it
+      # does not cache
       kompose.image-pull-policy: "IfNotPresent"
+  backend:
+    build: ./backend
+    container_name: backend-cont
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1
+    ports:
+      - "80:5000"
   nginx:
     build: ./nginx
     container_name: nginx

@@ -49,3 +49,4 @@ kubectl get services --output wide
 ### Recommendations:
 - Live transcoding from .flv format to .mp4 in the streamer pod
 - Need a way to `kubectl delete` without deleting the namespace
+- Use Ingress instead of nginx

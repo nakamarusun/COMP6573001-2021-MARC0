@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: marc0-namespace
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: backend
+  strategy:
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+        - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1"
+          imagePullPolicy: Always
+          name: backend
+          ports:
+            - containerPort: 5000
+          resources: {}
+      restartPolicy: Always
+status: {}
