@@ -1,7 +1,7 @@
 const express = require('express')
 const admin = require('../admin.js')
 const router = express.Router()
-const db = admin.firestore();
+const db = admin.firestore()
 const auth = require('../middleware/auth')
 
 router.use('/*', auth)
