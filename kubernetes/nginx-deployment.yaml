@@ -15,7 +15,6 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: nginx
-      loadbalance: external
   strategy:
     type: RollingUpdate
   template:
@@ -27,7 +26,6 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: nginx
-        loadbalance: external
     spec:
       containers:
         - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1_2"
@@ -36,6 +34,7 @@ spec:
           ports:
             - containerPort: 80
             - containerPort: 1935
+            - containerPort: 9003
           resources: {}
           volumeMounts:
             - mountPath: /tmp/rec

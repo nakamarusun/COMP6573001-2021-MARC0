@@ -4,12 +4,10 @@ kind: Service
 metadata:
   namespace: marc0-namespace
   name: nginx-external
-  labels:
-    loadbalance: external
 spec:
   type: LoadBalancer
   selector:
-    loadbalance: external
+    io.kompose.service: nginx
   ports:
     - name: rtmp
       port: 1935
