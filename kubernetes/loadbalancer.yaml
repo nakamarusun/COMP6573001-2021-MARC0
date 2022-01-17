@@ -17,4 +17,4 @@ spec:
       targetPort: 9003
     - name: backend
       port: 80
-      targetPort: 5000
+      targetPort: 80
