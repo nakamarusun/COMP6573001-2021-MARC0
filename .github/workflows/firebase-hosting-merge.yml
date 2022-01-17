@@ -21,3 +21,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MARC1ROBOT }}'
           channelId: live
           projectId: marc1robot
+          entryPoint: "./frontend"
