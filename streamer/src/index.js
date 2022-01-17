@@ -26,8 +26,8 @@ app.get('/on_publish', (req, res) => {
   // with the marci that's making this request 
     
   const { name } = req.query;
-  const marciUUID = req.query.split('?')[1]
-  const token = req.query.split('?')[0]
+  const [ token, marciUUID ] = name.split('?');
+
   if (name === "marc1") {
     return res.sendStatus(201);
   }
@@ -44,9 +44,8 @@ app.get('/on_publish', (req, res) => {
     })
     .catch((err) => {
       console.log(err)
+      return res.sendStatus(400);
     })
-    
-  return res.sendStatus(400);
 })
 
 // Checks whether the user has permission to play the video

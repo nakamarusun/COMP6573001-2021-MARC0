@@ -27,13 +27,27 @@ const peerServer = ExpressPeerServer(
 
 // Open server
 app.use("/peer", (req, res, next) => {
-  // TODO: Authenticate token and destination marc1 token
   const [ token, destId ] = req.url.split("/")[1].split("_");
 
-  if (true) {
-    return peerServer(req, res, next);
-  }
-  return res.sendStatus(403);
+  const [ token, marciUUID ] = token.split('?');
+
+  admin
+    .auth()
+    .verifyIdToken(token)
+    .then((verifiedToken) => {
+      const uid = verifiedToken.uid;
+      const dbMarciUUID = db.collection('UserMarciPairing').doc(uid).get('UUID')
+      if(dbMarciUUID === marciUUID){
+        console.log('All systems green, ping back to marci now')
+        
+        // Continue
+        return peerServer(req, res, next);
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      return res.sendStatus(403);
+    })
 })
 
 app.listen(9003)
