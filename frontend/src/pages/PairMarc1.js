@@ -10,14 +10,13 @@ import { useNavigate } from 'react-router'
 
 const PairMarc1 = () => {
 
-    const { currentUser } = useAuth()
+    const { currentUser, setIsPaired } = useAuth()
     const uuidRef = useRef()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [username, setUsername] = useState('')
     const docRef = doc(db, "UserNotes", currentUser.uid)
-    // const docSnap = async () => await getDoc(docRef)
 
     useEffect(() => {
         if (currentUser !== null) {
@@ -32,7 +31,6 @@ const PairMarc1 = () => {
         
     }
 
-
     async function handleSubmit(e) {
         e.preventDefault()
         try {
@@ -40,11 +38,12 @@ const PairMarc1 = () => {
             setLoading(true)
             await pairMarci()
             alert('Paired Successfully')
+            setIsPaired(true)
             setError('')
             navigate("/mainmenu")
         }
         catch {
-            setError('Failed to pair with your M')
+            setError('Failed to pair with your M4RC1')
         }
         setLoading(false)
     }

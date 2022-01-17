@@ -9,7 +9,7 @@ const AuthContext = createContext()
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
-    const [isPaired, setIsPaired] = useState(true)
+    const [isPaired, setIsPaired] = useState(false)
 
     // sign up
     function signup(email, password, name) {
