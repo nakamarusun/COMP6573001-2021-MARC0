@@ -18,16 +18,21 @@ spec:
         loadbalance: external
     spec:
       containers:
-        - image: "peerjs/peerjs-server"
+        - image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/peerjs:v1_1
           imagePullPolicy: Always
           name: peerjs
           ports:
             - containerPort: 9003
           resources: {}
-          args:
-            - "--port"
-            - "9003"
-            - "--path"
-            - "marc0webrtc"
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/stream-key.json
+          volumeMounts:
+            - name: cred-key
+              mountPath: /var/secrets/google
       restartPolicy: Always
+      volumes:
+        - name: cred-key
+          secret:
+            secretName: streamer-key
 status: {}

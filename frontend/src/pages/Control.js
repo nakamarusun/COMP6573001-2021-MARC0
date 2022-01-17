@@ -5,23 +5,26 @@ import { useEffect, useState } from 'react';
 const getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 const Control = () => {
+
+  // TODO: Get marc1's peer id and token somehow
+  const token = "mynamejeff";
+  const marc1Id = "marcy-yes";
   
   const [peer] = useState(new Peer(
     Math.random().toString(36).slice(2),
     {
       host: "marc0.jasoncoding.com",
       port: 9003,
-      path: "/marc0webrtc",
-      secure: false
+      path: `/peer/${token}_${marc1Id}/marc0webrtc`,
+      secure: false,
     }
   ));
   
   // When done testing, 
   function callMarc1() {
     getUserMedia({video: true, audio: true}, (stream) => {
-      const call = peer.call("", stream);
-      // TODO: Get marc1's peer id somehow
-      call.on("MARC1ID", (remoteStream) => {
+      const call = peer.call(marc1Id, stream);
+      call.on("stream", (remoteStream) => {
         
       });
     }, (err) => {
