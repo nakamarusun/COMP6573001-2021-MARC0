@@ -1,4 +1,4 @@
-import { Login, Register, PairMarc1, MainMenu, Control, ProtectedRoute, ForgetPassword } from './services/export/exportPages';
+import { Login, Register, PairMarc1, MainMenu, Control, ProtectedRoute, ForgetPassword, Marc1IsPairedRoute } from './services/export/exportPages';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from "./services/firebase/AuthContext";
 
@@ -9,9 +9,11 @@ function App() {
         <Routes>
           <Route path="/mainmenu"
             element={
-              <ProtectedRoute>
-                <MainMenu />
-              </ProtectedRoute>
+              <Marc1IsPairedRoute>
+                <ProtectedRoute>
+                  <MainMenu />
+                </ProtectedRoute>
+              </Marc1IsPairedRoute>
             }
           />
           <Route path="/pairMarc1"
@@ -23,10 +25,18 @@ function App() {
           />
           {/* <Route path="/control"
             element={
+              <Marc1IsPairedRoute>
+                <ProtectedRoute>
+                  <Control />
+                </ProtectedRoute>
+              </Marc1IsPairedRoute>
+            } /> */}
+          <Route path="/control"
+            element={
               <ProtectedRoute>
                 <Control />
               </ProtectedRoute>
-            } /> */}
+            } />
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgetpassword" element={<ForgetPassword />} />

@@ -25,12 +25,11 @@ const PairMarc1 = () => {
             getDoc(docRef).then(docSnap => {
                 return setUsername(docSnap.data().username)
             })
-
         }
     })
 
     function pairMarci(){
-
+        
     }
 
 
@@ -57,7 +56,7 @@ const PairMarc1 = () => {
                 <img className='mt-12' src={robot} alt='robot'></img>
                 <h2 className='font-bold text-2xl my-6'>Pair your M4rc1!</h2>
                 <form onSubmit={handleSubmit}>
-                    <input className="w-3/4 shadow-sm p-2 ring-1 ring-gray-200 rounded" type="password" ref={uuidRef} placeholder="M4rc1 UUID" required />
+                    <input className="w-3/4 shadow-sm p-2 ring-1 ring-gray-200 rounded" type="password" ref={uuidRef} placeholder="M4RC1 UUID" required />
                     {error && <div className="mt-3">{error}</div>}
                     <button disabled={loading} className='w-3/4 bg-blue-crayola text-cultured p-2 rounded-md mt-6' type='submit' value="submit">Submit</button>
                 </form>
