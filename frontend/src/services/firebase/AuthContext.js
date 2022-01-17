@@ -9,6 +9,7 @@ const AuthContext = createContext()
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
+    const [isPaired, setIsPaired] = useState(true)
 
     // sign up
     function signup(email, password, name) {
@@ -23,7 +24,6 @@ export function AuthProvider({ children }) {
                 console.log(err.message);
             });
     }
-
 
     // sign in
     function signin(email, password) {
@@ -58,7 +58,8 @@ export function AuthProvider({ children }) {
         signup,
         signin,
         signout,
-        resetPassword
+        resetPassword,
+        isPaired,
     }
 
     return (

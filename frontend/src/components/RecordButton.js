@@ -3,5 +3,5 @@ const RecordButton = () => {
         <div className="bruh"></div>
     );
 }
- 
+
 export default RecordButton;
