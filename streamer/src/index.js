@@ -24,21 +24,21 @@ app.get('/on_publish', (req, res) => {
   // TODO: do authentication
   // TODO : Gets the user's uid from the decoded token, do a firebase request to check whether that uid is paired 
   // with the marci that's making this request 
-
-  const marciUUID = 'hellothere'
-
+    
   const { name } = req.query;
+  const marciUUID = req.query.split('?')[1]
+  const token = req.query.split('?')[0]
   if (name === "marc1") {
     return res.sendStatus(201);
   }
   admin
     .auth()
-    .verifyIdToken(req.query)
+    .verifyIdToken(token)
     .then((verifiedToken) => {
       const uid = verifiedToken.uid;
       const dbMarciUUID = db.collection('UserMarciPairing').doc(uid).get('UUID')
       if(dbMarciUUID === marciUUID){
-        console.log('all systems green, ping back to marci now')
+        console.log('All systems green, ping back to marci now')
         res.sendStatus(201);
       }
     })
