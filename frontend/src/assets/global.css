@@ -2,9 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fix so we have 100% height */
 html, body, #root {
     height: 100%;
     margin: 0;
+}
+
+/* Fix to remove scrollbar when there is a vertical margin, even though the
+content does not reach the bottom */
+#root {
+    display: inline-block;
+    width: 100%;
 }
 
 #loginForm input{
