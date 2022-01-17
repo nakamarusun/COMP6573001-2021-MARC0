@@ -4,6 +4,8 @@ kind: Service
 metadata:
   namespace: marc0-namespace
   name: nginx-external
+  labels:
+    loadbalance: external
 spec:
   type: LoadBalancer
   selector:
