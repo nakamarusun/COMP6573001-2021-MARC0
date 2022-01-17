@@ -46,6 +46,15 @@ kubectl create secret generic streamer-key -n=marc0-namespace --from-file=stream
 kubectl get services --output wide
 ```
 
+### Notes:
+When pushing new deployments, if the yaml file does not change, it will not
+update the existing pods. To property do this automatically, one way to do it
+is to have multiple repositories for each images. Or, one can detect automatically
+which image changes. Another way is to change the versioning manually in the yamls
+and docker compose file
+(Which is done by changing the build number at the end).
+
 ### Recommendations:
 - Live transcoding from .flv format to .mp4 in the streamer pod
 - Need a way to `kubectl delete` without deleting the namespace
+- Use Ingress instead of nginx

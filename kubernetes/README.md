@@ -50,15 +50,45 @@ should exist.
 ### Namespace
 Namespaces are used to group up resources together.
 
-### Epic references
-https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#cloud-shell
-https://cloud.google.com/kubernetes-engine/docs/tutorials/gitops-cloud-build#shell
-https://cloud.google.com/kubernetes-engine/docs/tutorials/upgrading-stateful-workload
-https://k8syaml.com/
 
-*Confused env:
-https://stackoverflow.com/questions/56003777/how-to-pass-environment-variable-in-kubectl-deployment
-https://humanitec.com/blog/handling-environment-variables-with-kubernetes
+### Ingress
+Ingresses are a special way to route incoming requests (HTTP and HTTPS) into
+specific internal services depending on their host name and path. (Ex. bruh.com
+goes to service bruh-stream:80. bruh.com/man goes to service bruh-man:1443). It
+works exactly like nginx, where the difference is it's an actual kubernetes
+resource. To use an ingress, you must have ingress controller installed.
+Luckily, in GCP and AWS, an ingress controller is already installed. Just have
+to define ingress services in yaml format.
+https://kubernetes.io/docs/concepts/services-networking/ingress/
+
+To use ClusterIP instead of NodePort (I think it's faster too):
+https://cloud.google.com/kubernetes-engine/docs/concepts/container-native-load-balancing
+https://cloud.google.com/kubernetes-engine/docs/how-to/container-native-load-balancing#create_service
+
+Extra:
+https://stackoverflow.com/questions/62082819/google-kubernetes-engine-ingress-annotations
+
+Major disadvantage of GCP ingress controller is that you can't expose custom ports.
+
+TL;DR Ingress are basically nginx.conf but embedded in kubernetes itself.
+Without an ingress controller, ingress services are useless. GCP and AWS has
+a controller built-in and there is a controller for nginx.
+
+### Epic references
+- https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#cloud-shell
+- https://cloud.google.com/kubernetes-engine/docs/tutorials/gitops-cloud-build#shell
+- https://cloud.google.com/kubernetes-engine/docs/tutorials/upgrading-stateful-workload
+- https://k8syaml.com/
+
+- https://kubernetes.io/docs/reference/kubectl/cheatsheet/ (Always good)
+
+*Injecting environment variables time:
+- https://stackoverflow.com/questions/56003777/how-to-pass-environment-variable-in-kubectl-deployment
+- https://humanitec.com/blog/handling-environment-variables-with-kubernetes
+
+### Extra notes:
+- Image pull policy must be always to prevent GKE from pulling an old local image
+- Alpine is significantly lighter than ubuntu
 
 ### Nice commands
 
@@ -66,3 +96,4 @@ docker compose build
 kubectl apply -f kubernetes/
 kubectl delete -f kubernetes/
 kubectl edit
+kubectl config set-context --current --namespace=marc0-namespace

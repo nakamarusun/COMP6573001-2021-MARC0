@@ -1,6 +1,8 @@
 const MainMenu = () => {
     return ( 
-        <div className="whatever"></div>
+        <div className="whatever">
+            
+        </div>
     );
 }
  

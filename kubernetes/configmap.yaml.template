@@ -1,3 +1,5 @@
+# This is only used in deploying with cloud build. Variables down there with
+# $prefix will be replaced by the envsubst program from the gettext package.
 apiVersion: v1
 kind: ConfigMap
 metadata:

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: marc0-namespace
+  name: peerjs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: peerjs
+      loadbalance: external
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service: peerjs
+        loadbalance: external
+    spec:
+      containers:
+        - image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/peerjs:v1_1
+          imagePullPolicy: Always
+          name: peerjs
+          ports:
+            - containerPort: 9003
+          resources: {}
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/stream-key.json
+          volumeMounts:
+            - name: cred-key
+              mountPath: /var/secrets/google
+      restartPolicy: Always
+      volumes:
+        - name: cred-key
+          secret:
+            secretName: streamer-key
+status: {}

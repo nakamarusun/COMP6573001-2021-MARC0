@@ -34,6 +34,6 @@ steps:
       - 'CLOUDSDK_COMPUTE_ZONE=$_CLOUDSDK_COMPUTE_ZONE'
       - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLOUDSDK_CONTAINER_CLUSTER'
 
-images:
-  - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1"
-  - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1"
+# images:
+#   - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1"
+#   - "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1"

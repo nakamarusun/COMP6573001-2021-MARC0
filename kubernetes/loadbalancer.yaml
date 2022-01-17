@@ -7,11 +7,14 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    io.kompose.service: nginx
+    loadbalance: external
   ports:
-    - name: http
-      port: 80
-      targetPort: 80
     - name: rtmp
       port: 1935
       targetPort: 1935
+    - name: peerjs
+      port: 9003
+      targetPort: 9003
+    - name: backend
+      port: 80
+      targetPort: 5000

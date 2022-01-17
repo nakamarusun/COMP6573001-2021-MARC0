@@ -1,14 +1,9 @@
-// import react, firebase
-import React, { useContext, useEffect, useState } from 'react'
-import { auth, db } from './firebase-config'
+import { createContext, useContext, useEffect, useState } from 'react';
+import { auth, db } from './firebase-config';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from 'firebase/auth';
+import { doc, setDoc} from 'firebase/firestore';
 
-// create context
-const AuthContext = React.createContext()
-
-// export context
-export function useAuth() {
-    return useContext(AuthContext)
-}
+const AuthContext = createContext()
 
 // functions for firebase
 export function AuthProvider({ children }) {
@@ -17,39 +12,47 @@ export function AuthProvider({ children }) {
 
     // sign up
     function signup(email, password, name) {
-        return auth.createUserWithEmailAndPassword(email, password).then(cred => {
-            return db.collection('users').doc(cred.user.uid).set({
-                username: name
+        return createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                setDoc(doc(db, "UserNotes", userCredential.user.uid), {
+                    username: name
+                })
             })
-        })
+            .catch((err) => {
+                console.log(err.code);
+                console.log(err.message);
+            });
     }
+
 
     // sign in
     function signin(email, password) {
-        return auth.signInWithEmailAndPassword(email, password)
+        return signInWithEmailAndPassword(auth, email, password)
     }
 
     // sign out
     function signout() {
-        return auth.signOut()
+        return signOut(auth)
     }
 
     // reset password
-    function resetPassword(email){
-        return auth.sendPasswordResetEmail(email);
+    function resetPassword(email) {
+        return sendPasswordResetEmail(auth, email);
     }
 
     // to do after render
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
+        const unsubscribe = onAuthStateChanged(auth, user => {
+            console.log(user)
             setCurrentUser(user)
             setLoading(false)
         })
 
-        return unsubscribe
+        return () => {
+            unsubscribe()
+        }
     }, [])
- 
-    // set constants
+
     const value = {
         currentUser,
         signup,
@@ -58,10 +61,13 @@ export function AuthProvider({ children }) {
         resetPassword
     }
 
-    // to put in App.js html, import to all children
     return (
         <AuthContext.Provider value={value}>
             {!loading && children}
         </AuthContext.Provider>
     )
+}
+
+export function useAuth() {
+    return useContext(AuthContext)
 }

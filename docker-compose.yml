@@ -5,7 +5,7 @@ services:
     build: ./streamer
     container_name: stream-handler
     # Image name is important so that we kompose can know which image to run for
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1_4
     ports:
       - "80"
     environment:
@@ -16,7 +16,21 @@ services:
       - recdir:/streamer_module/tmp/rec
     labels:
       # Very important. Without this, it won't be able to pull local images
+      # However, the current setting in kubernetes/ is now Always, so that it
+      # does not cache
       kompose.image-pull-policy: "IfNotPresent"
+  backend:
+    build: ./backend
+    container_name: backend-cont
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_4
+    ports:
+      - "80:5000"
+  peerjs:
+    build: ./peerjs
+    container_name: peerjs-cont
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/peerjs:v1_1
+    ports:
+      - "9003:9003"
   nginx:
     build: ./nginx
     container_name: nginx
@@ -24,7 +38,7 @@ services:
       - "80:80"
       - "1935:1935"
     # Image name is important so that we kompose can know which image to run for
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1_2
     depends_on:
       - stream-handler
     volumes:

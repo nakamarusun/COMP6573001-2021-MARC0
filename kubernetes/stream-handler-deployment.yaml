@@ -4,7 +4,7 @@ metadata:
   namespace: marc0-namespace
   annotations:
     kompose.cmd: kompose convert -o kubernetes/
-    kompose.image-pull-policy: Always
+    kompose.image-pull-policy: IfNotPresent
     kompose.version: 1.26.1 (a9d05d509)
   creationTimestamp: null
   labels:
@@ -16,12 +16,12 @@ spec:
     matchLabels:
       io.kompose.service: stream-handler
   strategy:
-    type: Recreate
+    type: RollingUpdate
   template:
     metadata:
       annotations:
         kompose.cmd: kompose convert -o kubernetes/
-        kompose.image-pull-policy: Always
+        kompose.image-pull-policy: IfNotPresent
         kompose.version: 1.26.1 (a9d05d509)
       creationTimestamp: null
       labels:
@@ -38,8 +38,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: marc0-config
-          image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1"
-          imagePullPolicy: Always
+          image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1_4"
+          imagePullPolicy: IfNotPresent
           name: stream-handler
           ports:
             - containerPort: 80
