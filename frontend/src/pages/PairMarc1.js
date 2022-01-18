@@ -63,7 +63,6 @@ const PairMarc1 = () => {
                         <button disabled={loading} className='w-3/4 bg-blue-crayola text-cultured p-2 rounded-md mt-6' type='submit' value="submit">Submit</button>
                     </form>
                 </div>
-
             </div>
         </div>
     );

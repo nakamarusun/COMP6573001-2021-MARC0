@@ -70,7 +70,7 @@ const LoginCard = (props) => {
             console.log(err)
             setRegisterLoading(false)
         }
-        
+
     }
 
     return (
@@ -90,7 +90,6 @@ const LoginCard = (props) => {
                 {isRegister ? <button disabled={registerLoading} className='w-full bg-blue-crayola text-cultured p-2 rounded-md mt-3' type='submit' value="LSign Up">Sign Up</button> : <button disabled={loginLoading} className='w-full bg-blue-crayola text-cultured p-2 rounded-md' type='submit' value="Login">Sign In</button>}
                 {!isRegister ? <p className='mt-3 text-xs'>Don't have an account yet? <Link to="/register" disabled={loginLoading} className='underline'>Register</Link></p> : <p className='mt-3 text-xs'>Already have an account? <Link to="/" disabled={registerLoading} className='underline'>Sign in</Link></p>}
             </form>
-
         </div>
     );
 }
