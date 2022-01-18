@@ -60,6 +60,7 @@ export function AuthProvider({ children }) {
         signout,
         resetPassword,
         isPaired,
+        setIsPaired,
     }
 
     return (

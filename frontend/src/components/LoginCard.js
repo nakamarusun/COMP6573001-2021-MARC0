@@ -74,8 +74,8 @@ const LoginCard = (props) => {
     }
 
     return (
-        <div className="w-full px-6 py-8 shadow-md rounded ">
-            <form id="loginForm" onSubmit={isRegister ? (e) => handleRegister(e) : (e) => handleLogin(e)} className="flex flex-col items-center justify-center">
+        <div className="w-full px-6 py-8 shadow-md rounded md:w-4/6">
+            <form id="loginForm" onSubmit={isRegister ? (e) => handleRegister(e) : (e) => handleLogin(e)} className="flex flex-col items-center justify-center ">
                 {/* email */}
                 <input className="w-full shadow-sm p-2 ring-1 ring-gray-200 rounded mb-5" type="text" ref={emailRef} placeholder="&#xf199;  Email address" required />
                 {/* username */}
