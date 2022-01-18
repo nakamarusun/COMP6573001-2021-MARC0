@@ -5,4 +5,4 @@ export {default as PairMarc1} from '../../pages/PairMarc1';
 export {default as Register} from '../../pages/Register';
 export {default as ProtectedRoute} from '../../pages/ProtectedRoute';
 export {default as ForgetPassword} from '../../pages/ForgetPassword';
-
+export {default as Marc1IsPairedRoute} from '../../pages/Marc1IsPairedRoute';

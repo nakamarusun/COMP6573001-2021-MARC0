@@ -3,7 +3,6 @@ import { useAuth } from "../services/firebase/AuthContext";
 const ProtectedRoute = ({ children }) => {
 
     const { currentUser } = useAuth();
-    console.log("Check user in Private: ", currentUser);
 
     if (!currentUser) {
         return <Navigate to="/" />;
