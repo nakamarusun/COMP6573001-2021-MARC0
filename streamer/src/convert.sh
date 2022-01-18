@@ -11,8 +11,5 @@ fi
 # Transcode video to mp4
 ffmpeg -i ${fname} -b:v 1500k -vcodec copy -acodec copy ${fname%.*}.mp4 </dev/null
 
-# Delete original video
-rm ${fname}
-
 # Return the name of the file
 echo ${fname%.*}.mp4

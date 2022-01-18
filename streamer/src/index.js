@@ -6,6 +6,8 @@ const path = require("path")
 const { Storage } = require('@google-cloud/storage');
 const admin = require('./admin')
 const db = admin.firestore()
+const { nanoid } = require("nanoid");
+const fs = require("fs");
 
 // Express app
 const app = express()
@@ -58,6 +60,7 @@ app.get("/save_video", (req, res) => {
   // Name is the token of the transmission
   // Path is the location of the flv file
   const { name } = req.query;
+  const [ token, marciUUID ] = name.split('?');
   const vidPath = path.resolve(recPath + req.query.path.split("/").pop());
 
   // TODO: Sends data to firestore that the video is being processed and uploaded
@@ -81,15 +84,33 @@ app.get("/save_video", (req, res) => {
         console.log(`Uploaded ${newFile} to bucket!`);
       }
 
+      // Uploads data to firestore
+      admin
+        .auth()
+        .verifyIdToken(token)
+        .then((verifiedToken) => {
+          const uid = verifiedToken.uid;
+          const videoRef = db.collection("Videos").doc(uid);
+          videoRef.update({
+            videos: {
+              [ nanoid() ]: {
+                name: file.name,
+                date: fs.statSync(vidPath).birthtime,
+                path: file.path,
+                bucket: process.env.GCLOUD_STORAGE_NAME,
+              }
+            }
+          })
+        });
+
       // Delete file after uploading
+      shelljs.rm(vidPath);
       shelljs.rm(newFile);
     });
 
     return res.sendStatus(201);
   })
 })
-
-// TODO: Upload to bucket
 
 app.listen(port, () => {
   console.log(`Streamer module listening at http://localhost:${port}`)
