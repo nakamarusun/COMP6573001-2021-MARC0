@@ -41,7 +41,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com', {
+        fetch('http://marc0.jasoncoding.com/user/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token
@@ -58,7 +58,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com', {
+        fetch('http://marc0.jasoncoding.com/user/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token
@@ -75,7 +75,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com', {
+        fetch('http://marc0.jasoncoding.com/user/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token
@@ -92,7 +92,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com', {
+        fetch('http://marc0.jasoncoding.com/user/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token
