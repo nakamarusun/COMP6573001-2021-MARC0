@@ -38,7 +38,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: marc0-config
-          image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1_4"
+          image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1_6"
           imagePullPolicy: IfNotPresent
           name: stream-handler
           ports:
