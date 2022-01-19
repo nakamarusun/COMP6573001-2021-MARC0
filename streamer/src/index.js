@@ -79,17 +79,17 @@ app.get("/save_video", (req, res) => {
     // Upload file to bucket
     bucket.upload(newFile, uploadOpt, (err, file) => {
       if (err) {
-        console.log(`Uploading ${newFile} to bucket failed!\n ${err}`);
-      } else {
-        console.log(`Uploaded ${newFile} to bucket!`);
+        return console.log(`Uploading ${newFile} to bucket failed!\n ${err}`);
       }
+      console.log(`Uploaded ${newFile} to bucket!`);
 
       // Uploads data to firestore
-      admin
-        .auth()
-        .verifyIdToken(token)
-        .then((verifiedToken) => {
-          const uid = verifiedToken.uid;
+      // admin
+      //   .auth()
+      //   .verifyIdToken(token)
+      //   .then((verifiedToken) => {
+          // const uid = verifiedToken.uid;
+          const uid = "riHCMWFMgsWkQJ0pd7ss1JIPmC63";
           const videoRef = db.collection("Videos").doc(uid);
           videoRef.update({
             videos: {
@@ -101,7 +101,7 @@ app.get("/save_video", (req, res) => {
               }
             }
           })
-        });
+        // });
 
       // Delete file after uploading
       shelljs.rm(vidPath);
