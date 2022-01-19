@@ -7,6 +7,12 @@ const auth = require('../middleware/auth')
 
 router.use(express.json())
 router.use(express.urlencoded({extended : true}))
+router.post('/move', function(req, res){
+  console.log(req.body.orientation)
+  const io = req.app.get('socketio')
+  io.emit('move' + req.body.orientation)
+  return 200
+})
 router.use('/*', auth)
 router.post('/note', [
   body('content').escape()
