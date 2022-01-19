@@ -11,7 +11,7 @@ router.post('/move', function(req, res){
   console.log(req.body.orientation)
   const io = req.app.get('socketio')
   io.emit('move' + req.body.orientation)
-  return 200
+  res.sendStatus(200)
 })
 router.use('/*', auth)
 router.post('/note', [
