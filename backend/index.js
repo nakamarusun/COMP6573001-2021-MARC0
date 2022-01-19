@@ -12,6 +12,7 @@ const io = require("socket.io")(server, {});
 const routes = require('./api/routes.js')
 app.use('/api', routes.stream)
 app.use('/user', routes.user)
+app.use('/videos', routes.videos);
 
 // Attach listeners when someone connects
 const onConnection = function(socket) {

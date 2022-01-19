@@ -66,3 +66,5 @@ router.get("/video/:id", (req, res) => {
       return res.send(item);
     })
 });
+
+module.exports = router;
