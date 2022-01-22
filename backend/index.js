@@ -18,6 +18,7 @@ io.on('connection', onConnection)
 app.use('/api', routes.stream)
 app.use('/user', routes.user)
 app.use('/videos', routes.videos);
+app.use('/marci', routes.marciCommand);
 
 // Attach listeners when someone connects
 

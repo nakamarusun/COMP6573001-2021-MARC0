@@ -2,7 +2,6 @@ const admin = require("../admin");
 
 function authenticated(req, res, next){
     const headerToken = req.headers.authorization;
-    console.log(headerToken)
     if(!headerToken){
       return res.send({message : "No token provided"}).status(401);
     }
