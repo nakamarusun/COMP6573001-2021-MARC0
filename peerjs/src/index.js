@@ -27,9 +27,12 @@ const peerServer = ExpressPeerServer(
 
 // Open server
 app.use("/peer", (req, res, next) => {
-  const [ token, destId ] = req.url.split("/")[1].split("_");
+  // const [ token, destId ] = req.url.split("/")[1].split("_");
 
-  const [ token, marciUUID ] = token.split('?');
+  // const [ token, marciUUID ] = token.split('?');
+
+  // TODO: Evil
+  return peerServer(req, res, next);
 
   admin
     .auth()

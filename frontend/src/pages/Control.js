@@ -1,5 +1,5 @@
 import Peer from 'peerjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../services/firebase/AuthContext';
 import { ButtonContainer } from '../components/ButtonContainer'
 
@@ -10,6 +10,8 @@ const getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || n
 const Control = () => {
 
   const { currentUser } = useAuth()
+  const [text, setText] = useState("");
+  const vidRef = useRef(null);
 
   // TODO: Get marc1's peer id and token somehow
   const token = "mynamejeff";
@@ -19,7 +21,7 @@ const Control = () => {
     Math.random().toString(36).slice(2),
     {
       host: "marc0.jasoncoding.com",
-      port: 7003,
+      port: 9003,
       path: `/peer/${token}_${marc1Id}/marc0webrtc`,
       secure: false,
     }
@@ -28,14 +30,34 @@ const Control = () => {
   // When done testing, 
   function callMarc1() {
     getUserMedia({ video: true, audio: true }, (stream) => {
-      const call = peer.call(marc1Id, stream);
-      call.on("stream", (remoteStream) => {
+      console.log(stream)
 
+      const call = peer.call(text, stream);
+      console.log(text);
+      console.log(call);
+      call.on("stream", (remoteStream) => {
+        vidRef.current.src = URL.createObjectURL(remoteStream);
       });
+
     }, (err) => {
       console.log("Error getting stream\n" + err);
     });
   }
+
+  useEffect(() => {
+    console.log(peer.id);
+    peer.on("call", (call) => {
+      navigator.getUserMedia({video: true, audio: true}, function(stream) {
+        call.answer(stream); // Answer the call with an A/V stream.
+        call.on('stream', function(remoteStream) {
+          vidRef.current.src = URL.createObjectURL(remoteStream);
+        });
+      }, function(err) {
+        console.log('Failed to get local stream\n' + err);
+      });
+    })
+  }, [peer]);
+  // handle control to be implemented in a "unbad" way
 
   async function handleUp(e) {
     e.preventDefault()
@@ -112,10 +134,13 @@ const Control = () => {
   return (
     <div className="w-full h-full min-h-screen ">
       <div className="max-w-5xl h-full w-4/5 m-auto text-center flex flex-col items-center justify-start">
-        <div className="h-2/5 bg-blue-crayola w-full mt-4 ">bruh</div>
+        {/* <div className="h-2/5 bg-blue-crayola w-full mt-4 ">bruh</div> */}
+        <video ref={vidRef} className="h-2/5 w-full" id="their-video" autoPlay></video>
         <div className="md:flex md:flex-col ">
           <div className="flex flex-row space-x-2 mt-2 " >
-            <input className="w-24 bg-gray-300 " type="text" id="fname" name="fname" /><br />
+            <input className="w-24 bg-gray-300 " type="text" id="fname" name="fname" value={text} onChange={(a) => {
+              setText(a.target.value);
+            }} /><br />
             <button className="bg-blue-crayola text-white px-2 py-1  " onClick={callMarc1}>Connect</button>
             <div><i class="fas fa-play-circle text-5xl"></i></div>
             <div><i class="fas fa-stop text-5xl"></i></div>
