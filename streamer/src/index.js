@@ -30,7 +30,7 @@ app.get('/on_publish', (req, res) => {
   const { name } = req.query;
   const [ token, marciUUID ] = name.split('?');
 
-  if (name === "marc1") {
+  if (['marc1', 'marc2', 'marc3', 'marc4'].includes(name)) {
     return res.sendStatus(201);
   }
   admin

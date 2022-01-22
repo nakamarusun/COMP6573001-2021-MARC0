@@ -41,7 +41,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://localhost:5000/user/move', {
+        fetch('http://localhost:5000/marci/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -59,7 +59,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://localhost:5000/user/move', {
+        fetch('http://localhost:5000/marci/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -77,7 +77,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://localhost:5000/user/move', {
+        fetch('http://localhost:5000/marci/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -95,7 +95,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://localhost:5000/user/move', {
+        fetch('http://localhost:5000/marci/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -128,7 +128,7 @@ const Control = () => {
             {/* stop */}
             <div><i class="fas fa-stop-circle text-7xl lg text-red-600 px-4 pb-4 "></i></div>
             {/* right */}
-            <div><i onClick={handleLeft} class="fas fa-caret-square-right text-7xl lg text-yellow-500"></i></div>
+            <div><i onClick={handleRight} class="fas fa-caret-square-right text-7xl lg text-yellow-500"></i></div>
           </div>
           <div><i onClick={handleDown} class="fas fa-caret-square-down text-7xl text-pink-600"></i></div>
         </div>
