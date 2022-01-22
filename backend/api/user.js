@@ -4,16 +4,22 @@ const admin = require('../admin')
 const router = express.Router()
 const db = admin.firestore()
 const auth = require('../middleware/auth')
+const cors = require('cors');
 
+router.use(cors())
 router.use(express.json())
 router.use(express.urlencoded({extended : true}))
-router.post('/move', function(req, res){
-  console.log(req.body.orientation)
+router.use('/*', auth)
+router.post('/move', [
+  body('orientation').exists()
+], function(req, res){
+  if(!validationResult(req).isEmpty()) return res.status(400)
+  
   const io = req.app.get('socketio')
+  console.log('move' + req.body.orientation)
   io.emit('move' + req.body.orientation)
   res.sendStatus(200)
 })
-router.use('/*', auth)
 router.post('/note', [
   body('content').escape()
 ] , function(req, res){

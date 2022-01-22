@@ -41,14 +41,15 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com/user/move', {
+        fetch('http://localhost:5000/user/move', {
           method: 'POST',
           headers: {
-            authorization: 'Bearer ' + token
+            authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
           },
-          body: {
+          body: JSON.stringify({
             orientation: 'forward'
-          }
+          })
         })
       );
     }
@@ -58,14 +59,15 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com/user/move', {
+        fetch('http://localhost:5000/user/move', {
           method: 'POST',
           headers: {
-            authorization: 'Bearer ' + token
+            authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
           },
-          body: {
+          body: JSON.stringify({
             orientation: 'back'
-          }
+          })
         })
       );
     }
@@ -75,14 +77,15 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com/user/move', {
+        fetch('http://localhost:5000/user/move', {
           method: 'POST',
           headers: {
-            authorization: 'Bearer ' + token
+            authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
           },
-          body: {
+          body: JSON.stringify({
             orientation: 'right'
-          }
+          })
         })
       );
     }
@@ -92,14 +95,15 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com/user/move', {
+        fetch('http://localhost:5000/user/move', {
           method: 'POST',
           headers: {
-            authorization: 'Bearer ' + token
+            authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
           },
-          body: {
+          body: JSON.stringify({
             orientation: 'left'
-          }
+          })
         })
       );
     }
