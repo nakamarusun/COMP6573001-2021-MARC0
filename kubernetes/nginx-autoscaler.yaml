@@ -2,6 +2,8 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
+  labels:
+      io.kompose.service: nginx
   namespace: marc0-namespace
   name: nginx
 spec:
@@ -11,4 +13,4 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: nginx
-  targetCPUUtilizationPercentage: 80
+  targetCPUUtilizationPercentage: 15

@@ -57,6 +57,7 @@ const Control = () => {
       });
     })
   }, [peer]);
+  // handle control to be implemented in a "unbad" way
 
   async function handleUp(e) {
     e.preventDefault()

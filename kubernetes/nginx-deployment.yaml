@@ -35,7 +35,9 @@ spec:
             - containerPort: 80
             - containerPort: 1935
             - containerPort: 9003
-          resources: {}
+          resources:
+            requests:
+              cpu: "10m" # This thing
           volumeMounts:
             - mountPath: /tmp/rec
               name: recdir
