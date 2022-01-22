@@ -31,6 +31,9 @@ app.use("/peer", (req, res, next) => {
 
   const [ token, marciUUID ] = token.split('?');
 
+  // TODO: Evil
+  return peerServer(req, res, next);
+
   admin
     .auth()
     .verifyIdToken(token)
