@@ -22,8 +22,9 @@ const Control = () => {
     {
       host: "marc0.jasoncoding.com",
       port: 9003,
-      path: `/peer/${token}_${marc1Id}/marc0webrtc`,
+      path: `/peer/marc0webrtc`,
       secure: false,
+      token: `${token}_${marc1Id}`,
     }
   ));
 
@@ -36,7 +37,7 @@ const Control = () => {
       console.log(text);
       console.log(call);
       call.on("stream", (remoteStream) => {
-        vidRef.current.src = URL.createObjectURL(remoteStream);
+        vidRef.current.srcObject = remoteStream;
       });
 
     }, (err) => {
@@ -50,7 +51,7 @@ const Control = () => {
       navigator.getUserMedia({video: true, audio: true}, function(stream) {
         call.answer(stream); // Answer the call with an A/V stream.
         call.on('stream', function(remoteStream) {
-          vidRef.current.src = URL.createObjectURL(remoteStream);
+          vidRef.current.srcObject = remoteStream;
         });
       }, function(err) {
         console.log('Failed to get local stream\n' + err);
