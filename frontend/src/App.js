@@ -7,20 +7,20 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/mainmenu/Notes"
-            element={
-              <ProtectedRoute>
-                <Marc1IsPairedRoute>
-                  <Notes />
-                </Marc1IsPairedRoute>
-              </ProtectedRoute>
-            }
-          />
           <Route path="/mainmenu"
             element={
               <ProtectedRoute>
                 <Marc1IsPairedRoute>
                   <MainMenu />
+                </Marc1IsPairedRoute>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/mainmenu/Notes"
+            element={
+              <ProtectedRoute>
+                <Marc1IsPairedRoute>
+                  <Notes />
                 </Marc1IsPairedRoute>
               </ProtectedRoute>
             }

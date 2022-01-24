@@ -21,7 +21,7 @@ const MainMenu = () => {
         {
             title: 'Notes',
             icon: 'fas fa-clipboard',
-            desc: 'To access the notes marc1 made, you can click this notes card',
+            desc: 'To access the notes marc1 made, you can click this notes card.',
         },
     ]
 
@@ -38,7 +38,7 @@ const MainMenu = () => {
             </div>
             <div className="flex flex-col justify-center items-center">
                 {menus.map(menu => (
-                    <Link to={`/mainmenu/${menu.title}`} className="">
+                    <Link to={`/mainmenu/${menu.title}`} className="flex items-center text-center justify-center w-screen">
                         <MenuCard
                             title={menu.title}
                             icon={menu.icon}
