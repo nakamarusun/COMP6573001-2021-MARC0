@@ -1,34 +1,20 @@
-import { Link, Navigate } from 'react-router-dom'
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { useAuth } from '../services/firebase/AuthContext';
-import { db } from '../services/firebase/firebase-config';
-import { doc, getDoc } from "firebase/firestore";
 import { robot } from '../services/export/exportAssets'
 import { useNavigate } from 'react-router'
-
+import { Username } from '../services/export/exportComponents'
 
 
 const PairMarc1 = () => {
 
-    const { currentUser, setIsPaired } = useAuth()
+    const { setIsPaired } = useAuth()
     const uuidRef = useRef()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
-    const [username, setUsername] = useState('')
-    const docRef = doc(db, "UserNotes", currentUser.uid)
-
-    useEffect(() => {
-        if (currentUser !== null) {
-            // console.log(getDoc(doc(db, "UserNotes", currentUser.uid)).data().username)
-            getDoc(docRef).then(docSnap => {
-                return setUsername(docSnap.data().username)
-            })
-        }
-    })
 
     function pairMarci() {
-
+        // get UUID to pair marci here
     }
 
     async function handleSubmit(e) {
@@ -52,7 +38,7 @@ const PairMarc1 = () => {
         <div className="w-full mt-20 text-center">
             <div className='w-3/4 flex flex-col items-center justify-center m-auto'>
                 <div className='w-10/12'>
-                    <p className='text-xl font-'>Hey {username}!&#9995;</p>
+                    <p className='text-xl'>Hey {<Username />}!&#9995;</p>
                     <img className='mt-12' src={robot} alt='robot'></img>
                 </div>
                 <div className='w-11/12'>
