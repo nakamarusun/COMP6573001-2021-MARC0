@@ -6,5 +6,4 @@ const LoginHeader = (props) => {
         </div>
     );
 }
- 
 export default LoginHeader;
