@@ -6,12 +6,11 @@ services:
     container_name: stream-handler
     # Image name is important so that we kompose can know which image to run for
     image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1_7
-    ports:
-      - "80"
     environment:
       - PORT=80
       # GCP Cloud Storage bucket name to store streams
       - GCLOUD_STORAGE_NAME=${STREAM_GSTORAGE_NAME}
+      - "GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/g_secret"
     volumes:
       - recdir:/streamer_module/tmp/rec
     labels:
@@ -19,20 +18,31 @@ services:
       # However, the current setting in kubernetes/ is now Always, so that it
       # does not cache
       kompose.image-pull-policy: "IfNotPresent"
-  backend:
+    secrets:
+      - "g_secret"
+  backend-service:
     build: ./backend
     container_name: backend-cont
     image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_6
-    ports:
-      - "80:5000"
-  peerjs:
+    secrets:
+      - "g_secret"
+    environment:
+      - PORT=80
+      - "GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/g_secret"
+  peerjs-service:
     build: ./peerjs
     container_name: peerjs-cont
     image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/peerjs:v1_4
     ports:
       - "9003:9003"
+    secrets:
+      - "g_secret"
+    environment:
+      - "GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/g_secret"
   nginx:
-    build: ./nginx
+    build:
+      context: ./
+      dockerfile: ./nginx/Dockerfile
     container_name: nginx
     ports:
       - "80:80"
@@ -49,3 +59,9 @@ services:
 # Creates the volume
 volumes:
   recdir:
+
+# Loads the secret
+# Important that we have the json file in the root directory of the repo.
+secrets:
+  g_secret:
+    file: "./service_account.json"

@@ -27,7 +27,9 @@ app.get('/on_publish', (req, res) => {
   // TODO : Gets the user's uid from the decoded token, do a firebase request to check whether that uid is paired 
   // with the marci that's making this request 
     
-  const { name } = req.query;
+  const { name, swfurl } = req.query;
+  console.log(name);
+  console.log(swfurl);
   const [ token, marciUUID ] = name.split('?');
 
   if (['marc1', 'marc2', 'marc3', 'marc4'].includes(name)) {
