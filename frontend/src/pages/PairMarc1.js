@@ -7,14 +7,35 @@ import { Username, SignOutButton } from '../services/export/exportComponents'
 
 const PairMarc1 = () => {
 
-    const { setIsPaired } = useAuth()
+
+    const { currentUser, setIsPaired } = useAuth()
     const uuidRef = useRef()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
+    const marciUID = useRef()
+    const [success, setSuccess] = useState(false)
 
-    function pairMarci() {
+    function pairMarci(e) {
         // get UUID to pair marci here
+        if (currentUser !== null) {
+            const token = currentUser.getIdToken().then(token =>
+                fetch('http://marc0.jasoncoding.com/', {
+                    method: 'POST',
+                    headers: {
+                        authorization: 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ marciUID: marciUID.current.value })
+                }).then(res => {
+                    if (res.status === 200) {
+                        setSuccess(true)
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+            );
+        }
     }
 
     async function handleSubmit(e) {
@@ -23,10 +44,13 @@ const PairMarc1 = () => {
             setError('')
             setLoading(true)
             await pairMarci()
-            alert('Paired Successfully')
-            setIsPaired(true)
-            setError('')
-            navigate("/mainmenu")
+            if (success) {
+                alert('Paired Successfully')
+                setIsPaired(true)
+                setError('')
+                setSuccess(false)
+                navigate("/mainmenu")
+            }
         }
         catch {
             setError('Failed to pair with your M4RC1')
@@ -47,7 +71,7 @@ const PairMarc1 = () => {
                 <div className='w-11/12'>
                     <h2 className='font-bold text-2xl my-6'>Pair your M4rc1!</h2>
                     <form className="" onSubmit={handleSubmit}>
-                        <input className="w-3/4 shadow-sm p-2 ring-1 ring-gray-200 rounded" type="password" ref={uuidRef} placeholder="M4RC1 UUID" required />
+                        <input className="w-3/4 shadow-sm p-2 ring-1 ring-gray-200 rounded" type="password" ref={uuidRef} placeholder="M4RC1 UUID" ref={marciUID} required />
                         {error && <div className="mt-3">{error}</div>}
                         <button disabled={loading} className='w-3/4 bg-blue-crayola text-cultured p-2 rounded-md mt-6' type='submit' value="submit">Submit</button>
                     </form>
