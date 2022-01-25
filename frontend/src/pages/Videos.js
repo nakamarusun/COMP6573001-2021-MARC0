@@ -1,6 +1,8 @@
 const Videos = () => {
     return (  
-        <div className="bruh"></div>
+        <div className="bruh">
+            
+        </div>
     );
 }
  

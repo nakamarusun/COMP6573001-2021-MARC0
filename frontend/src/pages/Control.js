@@ -49,13 +49,11 @@ const Control = () => {
 
   // playRef.play();
   
-  // handle control to be implemented in a "unbad" way
-
   async function handleUp(e) {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://localhost:5000/marci/listen', {
+        fetch('http://marc0.jasoncoding.com/marci/listen', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,

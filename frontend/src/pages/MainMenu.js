@@ -1,11 +1,9 @@
 import MenuCard from "../components/MenuCard";
-import { useAuth } from '../services/firebase/AuthContext';
 import { Username } from '../services/export/exportComponents'
 import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { SignOutButton } from "../services/export/exportComponents"
 
 const MainMenu = () => {
-    const { currentUser } = useAuth()
 
     const menus = [
         {
@@ -25,7 +23,6 @@ const MainMenu = () => {
         },
     ]
 
-
     return (
         <div className="min-h-screen flex flex-col justify-center items-center">
             <div className="flex flex-row items-center h-auto gap-3 my-5">
@@ -36,9 +33,11 @@ const MainMenu = () => {
                     <p className="text-md">Welcome to Marc1, {<Username />}</p>
                 </div>
             </div>
-            <div className="flex flex-col justify-center items-center">
+            <SignOutButton title="Unpair Marc1"></SignOutButton>
+            <div className="flex flex-col justify-center items-center w-screen mt-8">
                 {menus.map(menu => (
-                    <Link to={`/mainmenu/${menu.title}`} className="flex items-center text-center justify-center w-screen">
+                    <Link to={`/mainmenu/${menu.title}`} className="flex items-center text-center justify-center w-5/6
+                    sm:w-1/2 lg:w-3/12">
                         <MenuCard
                             title={menu.title}
                             icon={menu.icon}

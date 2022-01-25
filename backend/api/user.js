@@ -46,10 +46,15 @@ router.post('/setup', [
   }
 
   const pairingRef = db.collection('UserMarciPairing').doc(userUID)
+  const marciRef = db.collection('MarciUserPairing').doc(marciUID)
   const data = {
     UUID : marciUID
+  } 
+  const marci = {
+    uid : UUID
   }
 
+  await marciRef.set(marci)
   await pairingRef.set(data)
   return res.sendStatus(200)
 })
