@@ -6,6 +6,7 @@ WORKDIR /frontendsrc
 RUN npm ci
 RUN npm run build
 
+
 # Use nginx + rtmp image
 FROM tiangolo/nginx-rtmp
 
