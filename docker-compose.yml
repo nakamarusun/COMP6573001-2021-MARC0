@@ -29,16 +29,16 @@ services:
     environment:
       - PORT=80
       - "GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/g_secret"
-  peerjs-service:
-    build: ./peerjs
-    container_name: peerjs-cont
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/peerjs:v1_4
-    ports:
-      - "9003:9003"
-    secrets:
-      - "g_secret"
-    environment:
-      - "GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/g_secret"
+  # peerjs-service:
+    # build: ./peerjs
+    # container_name: peerjs-cont
+    # image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/peerjs:v1_4
+    # ports:
+    #   - "9003:9003"
+    # secrets:
+    #   - "g_secret"
+    # environment:
+    #   - "GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/g_secret"
   nginx:
     # Context on root so we can also build frontend
     build:

@@ -1,4 +1,5 @@
 # Build react frontend and place it in nginx directory
+# Building in CI/CD is ungodly slow. Search a way to build locally instead
 FROM node:16-alpine3.15
 COPY ./frontend /frontendsrc
 WORKDIR /frontendsrc
