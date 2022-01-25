@@ -58,3 +58,5 @@ and docker compose file
 - Live transcoding from .flv format to .mp4 in the streamer pod
 - Need a way to `kubectl delete` without deleting the namespace
 - Use Ingress instead of nginx
+- I think nginx-rtmp is able to use ? url queries. Look on this later
+- Building react in CI/CD is ungodly slow. Search a way to build locally instead

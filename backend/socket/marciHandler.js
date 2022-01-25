@@ -10,17 +10,17 @@ module.exports = function (io, socket) {
       console.log(`Marci instance connected : ${marciUUID}`);
     });
   });
-  socket.on("marciNote", function (marciUUID, content) {
+  socket.on("marciNote", async function (marciUUID, content) {
     if (typeof marciUUID === "undefined") return;
     if (typeof content === "undefined") return;
 
-    let uidSnap = db.collection("MarciUserPairing").doc(marciUUID).get("uid");
+    let uidSnap = await db.collection("MarciUserPairing").doc(marciUUID).get("uid");
     uidSnap = uidSnap.data().uid;
     const noteRef = db.collection("UserNotes").doc(uidSnap);
     noteRef
       .get()
       .then((noteSnapshot) => {
-        if (noteSnapshot.isEmpty) {
+        if(!noteSnapshot.isEmpty) {
           noteRef.update({
             note: admin.firestore.FieldValue.arrayUnion(content),
           });
@@ -29,7 +29,7 @@ module.exports = function (io, socket) {
         }
       })
       .then(() => {
-        return res.sendStatus(200);
+        
       });
   });
 };

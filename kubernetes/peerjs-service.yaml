@@ -1,14 +1,14 @@
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: marc0-namespace
-  name: peerjs-service
-spec:
-  ports:
-    - name: "80"
-      port: 80
-      targetPort: 9003
-  selector:
-    service: peerjs
-status:
-  loadBalancer: {}
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   namespace: marc0-namespace
+#   name: peerjs-service
+# spec:
+#   ports:
+#     - name: "80"
+#       port: 80
+#       targetPort: 9003
+#   selector:
+#     service: peerjs
+# status:
+#   loadBalancer: {}

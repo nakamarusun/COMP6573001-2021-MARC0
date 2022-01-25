@@ -24,7 +24,7 @@ router.post('/listen', function(req, res){
   const io = req.app.get('socketio')
   io.to(res.locals.marciSocketID).emit('listen')
   res.locals.marciSocket.once('listenStatus', function(statusCode){
-    console.log('Marci is now listening')
+    console.log('Marci is now listening', statusCode)
     res.sendStatus(statusCode)
   })
 })

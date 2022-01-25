@@ -28,7 +28,7 @@ spec:
         io.kompose.service: nginx
     spec:
       containers:
-        - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1_3"
+        - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1_5"
           imagePullPolicy: IfNotPresent
           name: nginx
           ports:
@@ -37,7 +37,7 @@ spec:
             - containerPort: 9003
           resources:
             requests:
-              cpu: "950m" # This thing
+              cpu: "100m" # This thing
           volumeMounts:
             - mountPath: /tmp/rec
               name: recdir
