@@ -16,7 +16,7 @@ const PairMarc1 = () => {
     const marciUID = useRef()
     const [success, setSuccess] = useState(false)
 
-    function pairMarci(e) {
+    function pairMarci() {
         // get UUID to pair marci here
         if (currentUser !== null) {
             const token = currentUser.getIdToken().then(token =>

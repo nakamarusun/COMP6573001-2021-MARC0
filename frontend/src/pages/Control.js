@@ -47,8 +47,6 @@ const Control = () => {
 
   // playRef.play();
   
-  // handle control to be implemented in a "unbad" way
-
   async function handleUp(e) {
     e.preventDefault()
     if (currentUser !== null) {
@@ -126,13 +124,14 @@ const Control = () => {
       <div className="max-w-5xl h-full w-4/5 m-auto text-center flex flex-col items-center justify-start">
         <video ref={vidRef} className="h-2/5 w-full" id="their-video" autoPlay></video>
         <div className="md:flex md:flex-col ">
-          <div className="flex flex-row justify-center space-x-5 mt-2 " >
+          <div className="flex flex-row justify-center items-center space-x-5 mt-2 " >
             {/* <input className="w-24 bg-gray-300 " type="text" id="fname" name="fname" value={text} onChange={(a) => {
               setText(a.target.value);
             }} /><br />
             <button className="bg-blue-crayola text-white px-2 py-1" onClick={callMarc1}>Connect</button> */}
             <div><i class="fas fa-play-circle text-4xl md:text-6xl lg:text-4xl"></i></div>
             <div><i class="fas fa-stop text-4xl md:text-6xl lg:text-4xl"></i></div>
+            <div className='bg-black rounded-lg text-white p-2 text-sm'>Record 1 minute</div>
           </div>
           {/*turnL /* up /* turn right*/ }
             <div className="flex felx-row justify-center">
