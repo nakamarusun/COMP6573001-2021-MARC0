@@ -9,7 +9,7 @@ then
 fi
 
 # Transcode video to mp4
-ffmpeg -i ${fname} -b:v 1500k -vcodec copy -acodec copy ${fname%.*}.mp4 </dev/null
+ffmpeg -hide_banner -loglevel error -i ${fname} -b:v 1500k -vcodec copy -acodec copy ${fname%.*}.mp4 </dev/null
 
 # Return the name of the file
 echo ${fname%.*}.mp4

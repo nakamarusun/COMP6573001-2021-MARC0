@@ -50,7 +50,6 @@ should exist.
 ### Namespace
 Namespaces are used to group up resources together.
 
-
 ### Ingress
 Ingresses are a special way to route incoming requests (HTTP and HTTPS) into
 specific internal services depending on their host name and path. (Ex. bruh.com
@@ -73,6 +72,22 @@ Major disadvantage of GCP ingress controller is that you can't expose custom por
 TL;DR Ingress are basically nginx.conf but embedded in kubernetes itself.
 Without an ingress controller, ingress services are useless. GCP and AWS has
 a controller built-in and there is a controller for nginx.
+
+### Redeployment:
+To update your deployment with a new image, the configuration yaml must be
+changed in kubectl itself through apply or patch. If the configuration does not
+change, it will not update the image. The trick is, to update, we can fill one
+of the labels with the current datetime of the deployment with so:
+```bash
+kubectl patch deployment web -p \
+  "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
+```
+
+Next job is to create a script that detects from git whether a folder change to
+trigger date script.
+
+Alternatively, we can create a script that increments a revision number in the
+labels. Or increment the image build number.
 
 ### Epic references
 - https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#cloud-shell

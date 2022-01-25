@@ -15,39 +15,36 @@ const { ExpressPeerServer } = require("peer");
 const express = require("express");
 
 const app = express();
+const server = app.listen(9003);
 
 // Create express route
 const peerServer = ExpressPeerServer(
-  app,
+  server,
   {
     path: "/marc0webrtc",
     allow_discovery: false,
   }
-)
+);
 
-// Open server
-app.use("/peer", (req, res, next) => {
-  const [ token, destId ] = req.url.split("/")[1].split("_");
+app.use('/peer', peerServer);
 
-  const [ token, marciUUID ] = token.split('?');
+// Authenticate users
+peerServer.on('connection', client => {
+  const { token } = client;
 
-  admin
-    .auth()
-    .verifyIdToken(token)
-    .then((verifiedToken) => {
-      const uid = verifiedToken.uid;
-      const dbMarciUUID = db.collection('UserMarciPairing').doc(uid).get('UUID')
-      if(dbMarciUUID === marciUUID){
-        console.log('All systems green, ping back to marci now')
-        
-        // Continue
-        return peerServer(req, res, next);
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-      return res.sendStatus(403);
-    })
+  // admin
+  //   .auth()
+  //   .verifyIdToken(token)
+  //   .then((verifiedToken) => {
+  //     const uid = verifiedToken.uid;
+  //     const dbMarciUUID = db.collection('UserMarciPairing').doc(uid).get('UUID')
+  //     if(dbMarciUUID !== marciUUID){
+  //       console.log(`Rejecting token ${token}`);
+  //       client.socket.close()
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.error(err)
+  //     client.socket.close()
+  //   })
 })
-
-app.listen(9003)

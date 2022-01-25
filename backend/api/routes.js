@@ -1,5 +1,6 @@
 module.exports = {
   stream : require('./stream.js'),
   user : require('./user.js'),
-  videos: require('./videos')
+  videos: require('./videos'),
+  marciCommand: require('./marciCommand')
 }

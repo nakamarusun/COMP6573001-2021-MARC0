@@ -1,17 +1,16 @@
-version: "3"
+version: "3.8"
 
 services:
   stream-handler:
     build: ./streamer
     container_name: stream-handler
     # Image name is important so that we kompose can know which image to run for
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1_4
-    ports:
-      - "80"
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1_7
     environment:
       - PORT=80
       # GCP Cloud Storage bucket name to store streams
       - GCLOUD_STORAGE_NAME=${STREAM_GSTORAGE_NAME}
+      - "GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/g_secret"
     volumes:
       - recdir:/streamer_module/tmp/rec
     labels:
@@ -19,26 +18,38 @@ services:
       # However, the current setting in kubernetes/ is now Always, so that it
       # does not cache
       kompose.image-pull-policy: "IfNotPresent"
-  backend:
+    secrets:
+      - "g_secret"
+  backend-service:
     build: ./backend
     container_name: backend-cont
     image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_6
-    ports:
-      - "80:5000"
-  peerjs:
-    build: ./peerjs
-    container_name: peerjs-cont
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/peerjs:v1_1
-    ports:
-      - "9003:9003"
+    secrets:
+      - "g_secret"
+    environment:
+      - PORT=80
+      - "GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/g_secret"
+  # peerjs-service:
+    # build: ./peerjs
+    # container_name: peerjs-cont
+    # image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/peerjs:v1_4
+    # ports:
+    #   - "9003:9003"
+    # secrets:
+    #   - "g_secret"
+    # environment:
+    #   - "GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/g_secret"
   nginx:
-    build: ./nginx
+    # Context on root so we can also build frontend
+    build:
+      context: ./
+      dockerfile: ./nginx/Dockerfile
     container_name: nginx
     ports:
       - "80:80"
       - "1935:1935"
     # Image name is important so that we kompose can know which image to run for
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1_3
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1_5
     depends_on:
       - stream-handler
     volumes:
@@ -49,3 +60,9 @@ services:
 # Creates the volume
 volumes:
   recdir:
+
+# Loads the secret
+# Important that we have the json file in the root directory of the repo.
+secrets:
+  g_secret:
+    file: "./service_account.json"

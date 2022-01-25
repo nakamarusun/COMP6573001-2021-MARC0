@@ -27,10 +27,12 @@ app.get('/on_publish', (req, res) => {
   // TODO : Gets the user's uid from the decoded token, do a firebase request to check whether that uid is paired 
   // with the marci that's making this request 
     
-  const { name } = req.query;
+  const { name, swfurl } = req.query;
+  console.log(name);
+  console.log(swfurl);
   const [ token, marciUUID ] = name.split('?');
 
-  if (name === "marc1") {
+  if (['marc1', 'marc2', 'marc3', 'marc4'].includes(name)) {
     return res.sendStatus(201);
   }
   admin
@@ -79,17 +81,17 @@ app.get("/save_video", (req, res) => {
     // Upload file to bucket
     bucket.upload(newFile, uploadOpt, (err, file) => {
       if (err) {
-        console.log(`Uploading ${newFile} to bucket failed!\n ${err}`);
-      } else {
-        console.log(`Uploaded ${newFile} to bucket!`);
+        return console.log(`Uploading ${newFile} to bucket failed!\n ${err}`);
       }
+      console.log(`Uploaded ${newFile} to bucket!`);
 
       // Uploads data to firestore
-      admin
-        .auth()
-        .verifyIdToken(token)
-        .then((verifiedToken) => {
-          const uid = verifiedToken.uid;
+      // admin
+      //   .auth()
+      //   .verifyIdToken(token)
+      //   .then((verifiedToken) => {
+          // const uid = verifiedToken.uid;
+          const uid = "riHCMWFMgsWkQJ0pd7ss1JIPmC63";
           const videoRef = db.collection("Videos").doc(uid);
           videoRef.update({
             videos: {
@@ -101,7 +103,7 @@ app.get("/save_video", (req, res) => {
               }
             }
           })
-        });
+        // });
 
       // Delete file after uploading
       shelljs.rm(vidPath);

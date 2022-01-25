@@ -1,39 +1,54 @@
+import MenuCard from "../components/MenuCard";
+import { useAuth } from '../services/firebase/AuthContext';
+import { Username } from '../services/export/exportComponents'
+import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+
 const MainMenu = () => {
+    const { currentUser } = useAuth()
+
+    const menus = [
+        {
+            title: 'Control',
+            icon: 'fas fa-gamepad',
+            desc: 'To control Marc1, you can click to this button card.',
+        },
+        {
+            title: 'Videos',
+            icon: 'fas fa-video',
+            desc: 'To access video that were recorded, you can click this video card.',
+        },
+        {
+            title: 'Notes',
+            icon: 'fas fa-clipboard',
+            desc: 'To access the notes marc1 made, you can click this notes card.',
+        },
+    ]
+
+
     return (
-        <div className="w-full h-full min-h-screen text-center flex flex-col items-center justify-start ">
-            <div className="flex flex-row text-center items-center h-auto">
+        <div className="min-h-screen flex flex-col justify-center items-center">
+            <div className="flex flex-row items-center h-auto gap-3 my-5">
                 <div className="flex items-center h-full">
-                    <i class="fas fa-robot text-blue-crayola text-4xl "></i>
+                    <i class="fas fa-robot text-blue-crayola text-3xl "></i>
                 </div>
-                <div className="h-full text-center flex items-center">
-                    <p className="text-2xl">
-                        Welcome to Marc1</p>
-                </div>
-            </div>
-            {/* first box ( background )*/}
-            <div className="h-1/4 w-5/6 bg-blue-200 w-full h-full rounded-3xl mt-8 flex flex-row items-center ">
-                {/* section one */}
-                <div className="text-7xl p-4 text-gray-500">
-                    <i class="fas fa-gamepad"></i>
-                </div>
-                {/* section two */}
-                <div className="flex flex-col h-56 " >
-                    <p className="text-4xl font-bold text-left pt-5">Control</p>
-                    <p className="text-left w-4/5 align-text-top pt-5">To control Marc1, you can click to this button card</p>
+                <div className="h-full flex items-center">
+                    <p className="text-md">Welcome to Marc1, {<Username />}</p>
                 </div>
             </div>
-            {/* second box ( background )*/}
-            <div className="h-1/4 w-5/6 bg-blue-900 w-full h-full rounded-3xl mt-8 flex flex-row items-center">
-                {/* section one */}
-                <div className="text-7xl p-4 text-white">
-                    <i class="fas fa-video"></i>
-                </div>
-                {/* section two */}
-                <div className="flex flex-col h-56 " >
-                    <p className="text-4xl font-bold text-left pt-5 text-white">Video</p>
-                    <p className="text-left w-4/5 align-text-top pt-5 text-white">To access video that were recorded. You cal click this video card</p>
-                </div>
+            <div className="flex flex-col justify-center items-center">
+                {menus.map(menu => (
+                    <Link to={`/mainmenu/${menu.title}`} className="flex items-center text-center justify-center w-screen">
+                        <MenuCard
+                            title={menu.title}
+                            icon={menu.icon}
+                            desc={menu.desc}
+                        ></MenuCard>
+                    </Link>
+                ))}
             </div>
+
+
         </div>
     );
 }
