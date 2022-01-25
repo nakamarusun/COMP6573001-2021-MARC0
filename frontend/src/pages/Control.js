@@ -11,12 +11,26 @@ const Control = () => {
 
   const { currentUser } = useAuth()
   const [text, setText] = useState("");
+  const [streamToken, setStreamToken] = useState(""); // TODO: Wait until get
   const vidRef = useRef(null);
   const playRef = useRef(null);
 
-  // TODO: Get marc1's peer id and token somehow
-  const token = "mynamejeff";
-  const marc1Id = "marcy-yes";
+  useEffect(() => {
+    // Start stream on marc1
+    if (currentUser !== null) {
+      currentUser.getIdToken().then(token =>
+        fetch('http://marc0.jasoncoding.com/api/stream', {
+            method: 'GET',
+            headers: {
+            authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
+          }
+        }).then((x) => x.text()).then((data) => {
+          setStreamToken(data);
+        })
+      );
+    }
+  });
 
   // Play video
   useEffect(() => {
@@ -34,7 +48,7 @@ const Control = () => {
       });
       playRef.current.play();
     }
-  }, [vidRef]);
+  }, [vidRef, streamToken]);
 
   // Dispose
   useEffect(() => {
@@ -130,11 +144,11 @@ const Control = () => {
         <div className="md:flex md:flex-col ">
           <div className="flex flex-row justify-center space-x-5 mt-2 " >
             <div onClick={() => {
-              fetch('http://marc0.jasoncoding.com/stream/control/record/start?app=marc1live&name=marc1')
+              fetch(`http://marc0.jasoncoding.com/stream/control/record/start?app=marc1live&name=${streamToken}`)
                 .then(() => {alert("Recording started!")})
             }}><i class="fas fa-play-circle text-4xl md:text-6xl lg:text-4xl"></i></div>
             <div onclick={() => {
-              fetch('http://marc0.jasoncoding.com/stream/control/record/stop?app=marc1live&name=marc1')
+              fetch(`http://marc0.jasoncoding.com/stream/control/record/stop?app=marc1live&name=${streamToken}`)
                 .then(() => {alert("Recording stopped!")})
             }}><i class="fas fa-stop text-4xl md:text-6xl lg:text-4xl"></i></div>
           </div>

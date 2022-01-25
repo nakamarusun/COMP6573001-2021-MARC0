@@ -24,10 +24,10 @@ router.get('/stream', function(req, res){
         
         await db.collection('StreamTokens').doc(uid).set(customToken)
 
-        io.to(marciSocketID).emit('streamRequest', uniqueString)
+        io.to(marciSocketID).emit('streamRequest', uniqueString, uid)
         const marciSocket = io.sockets.sockets.get(marciSocketID) 
         marciSocket.once('streamStatus', (statusCode) => {
-          res.sendStatus(statusCode)
+          res.status(statusCode).send(`${uniqueString}?${marciUUID}?${uid}`);
         })
       } 
     )
