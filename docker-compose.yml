@@ -5,7 +5,7 @@ services:
     build: ./streamer
     container_name: stream-handler
     # Image name is important so that we kompose can know which image to run for
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1_7
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/stream-handler:v1_8
     environment:
       - PORT=80
       # GCP Cloud Storage bucket name to store streams
@@ -23,7 +23,7 @@ services:
   backend-service:
     build: ./backend
     container_name: backend-cont
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_6
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_7
     secrets:
       - "g_secret"
     environment:

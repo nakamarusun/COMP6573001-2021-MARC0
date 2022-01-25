@@ -82,7 +82,7 @@ app.get("/save_video", (req, res) => {
   // Name is the token of the transmission
   // Path is the location of the flv file
   const { name } = req.query;
-  const [ token, marciUUID ] = name.split('?');
+  const [ uniqueString, marciUUID, uid ] = name.split('?');
   const vidPath = path.resolve(recPath + req.query.path.split("/").pop());
 
   // TODO: Sends data to firestore that the video is being processed and uploaded
@@ -106,24 +106,17 @@ app.get("/save_video", (req, res) => {
       console.log(`Uploaded ${newFile} to bucket!`);
 
       // Uploads data to firestore
-      // admin
-      //   .auth()
-      //   .verifyIdToken(token)
-      //   .then((verifiedToken) => {
-          // const uid = verifiedToken.uid;
-          const uid = "riHCMWFMgsWkQJ0pd7ss1JIPmC63";
-          const videoRef = db.collection("Videos").doc(uid);
-          videoRef.update({
-            videos: {
-              [ nanoid() ]: {
-                name: file.name,
-                date: fs.statSync(vidPath).birthtime,
-                path: file.path,
-                bucket: process.env.GCLOUD_STORAGE_NAME,
-              }
-            }
-          })
-        // });
+      const videoRef = db.collection("Videos").doc(uid);
+      videoRef.update({
+        videos: {
+          [ nanoid() ]: {
+            name: file.name,
+            date: fs.statSync(vidPath).birthtime,
+            path: file.path,
+            bucket: process.env.GCLOUD_STORAGE_NAME,
+          }
+        }
+      });
 
       // Delete file after uploading
       shelljs.rm(vidPath);
