@@ -1,5 +1,6 @@
 const admin = require('../admin')
 const db = admin.firestore()
+
 module.exports = function(io, socket){
   const socketID = socket.id
   socket.on('marciActivate', function(marciUUID){
@@ -13,4 +14,7 @@ module.exports = function(io, socket){
   socket.on('streamFailed', function(){
     // How to talk to frontend here, gatau
   })
+  // socket.on("image", ({img, marciUUID}) => {
+  //   image = img;
+  // })
 }
