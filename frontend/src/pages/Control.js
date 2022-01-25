@@ -27,7 +27,7 @@ const Control = () => {
         responsive: true,
         fluid: true,
         sources: [{
-          src: "marc0.jasoncoding.com/live/marc1.m3u8",
+          src: "//marc0.jasoncoding.com/live/marc1.m3u8",
           type: "application/vnd.apple.mpegurl"
         }]
       });
