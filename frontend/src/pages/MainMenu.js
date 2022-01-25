@@ -30,7 +30,7 @@ const MainMenu = () => {
                 </div>
                 {/* section two */}
                 <div className="flex flex-col h-56 " >
-                    <p className="text-4xl font-bold text-left pt-5 text-white">Control</p>
+                    <p className="text-4xl font-bold text-left pt-5 text-white">Video</p>
                     <p className="text-left w-4/5 align-text-top pt-5 text-white">To access video that were recorded. You cal click this video card</p>
                 </div>
             </div>

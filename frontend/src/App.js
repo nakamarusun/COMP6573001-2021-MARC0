@@ -1,6 +1,8 @@
 import { Login, Register, PairMarc1, MainMenu, Control, ProtectedRoute, ForgetPassword, Marc1IsPairedRoute } from './services/export/exportPages';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from "./services/firebase/AuthContext";
+import Recordings from './pages/Recordings';
+import RecordedVideo from './pages/RecordedVideo';
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
           <Route path="/forgetpassword" element={<ForgetPassword />} />
           <Route path="/control" element={<Control />} />
           <Route path="/mainmenu" element={<MainMenu />} />
+          <Route path="/recordings" element={<Recordings />} />
+          <Route path="/recordings/:videoId" element={<RecordedVideo />} />
         </Routes>
       </Router>
     </AuthProvider>
