@@ -53,7 +53,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://localhost:5000/marci/listen', {
+        fetch('http://marc0.jasoncoding.com/marci/listen', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
