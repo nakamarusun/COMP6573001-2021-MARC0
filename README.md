@@ -59,4 +59,4 @@ and docker compose file
 - Need a way to `kubectl delete` without deleting the namespace
 - Use Ingress instead of nginx
 - I think nginx-rtmp is able to use ? url queries. Look on this later
-- Building react in CI/CD is ungodly slow. Search a way to build locally instead
+- Building and creating react in CI/CD is ungodly slow. Search a way to build locally instead
