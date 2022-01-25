@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../services/firebase/AuthContext';
 import { ButtonContainer } from '../components/ButtonContainer'
-import videojs from "./Videos.js";
+import videojs from "video.js";
 
 // To get video and audio from browser
 const getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -23,11 +23,11 @@ const Control = () => {
       if (!vidRef.current) return;
 
       playRef.current = videojs(vidRef.current, {
-        // autoplay: true,
+        autoplay: true,
         responsive: true,
         fluid: true,
         sources: [{
-          src: "//marc0.jasoncoding.com/live/marc1.m3u8",
+          src: "//marc0.jasoncoding.com/live/live/marc1.m3u8",
           type: "application/vnd.apple.mpegurl"
         }]
       });
@@ -43,7 +43,7 @@ const Control = () => {
         playRef.current = null;
       }
     };
-  }, [playRef]);
+  }, [playRef]); 
 
   // playRef.play();
   

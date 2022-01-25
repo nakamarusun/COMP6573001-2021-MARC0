@@ -27,29 +27,49 @@ app.get('/on_publish', (req, res) => {
   // TODO : Gets the user's uid from the decoded token, do a firebase request to check whether that uid is paired 
   // with the marci that's making this request 
     
+  // const { name } = req.query;
   const { name, swfurl } = req.query;
-  console.log(name);
-  console.log(swfurl);
-  const [ token, marciUUID ] = name.split('?');
+  const [ uniqueString, marciUUID, uid ] = name.split('?');
+
+  // console.log(name);
+  // console.log(swfurl);
+  // const [ token, marciUUID ] = name.split('?');
 
   if (['marc1', 'marc2', 'marc3', 'marc4'].includes(name)) {
     return res.sendStatus(201);
   }
+
   admin
     .auth()
-    .verifyIdToken(token)
-    .then((verifiedToken) => {
-      const uid = verifiedToken.uid;
-      const dbMarciUUID = db.collection('UserMarciPairing').doc(uid).get('UUID')
-      if(dbMarciUUID === marciUUID){
-        console.log('All systems green, ping back to marci now')
+    .createCustomToken(uniqueString)
+    .then(async (generatedToken) => {
+      const dbMarciUUID = await db.collection('UserMarciPairing').doc(uid).get('UUID')
+      dbMarciUUID = dbMarciUUID.data().UUID
+
+      const dbToken = await db.collection('StreamTokens').doc(uid).get('token')
+      dbToken = dbToken.data().token
+
+      if(dbMarciUUID === marciUUID && dbToken === generatedToken){
+        console.log('All systems green')
         res.sendStatus(201);
+        db.collection('StreamTokens').doc(uid).delete()
       }
     })
-    .catch((err) => {
-      console.log(err)
-      return res.sendStatus(400);
-    })
+  // admin
+  //   .auth()
+  //   .verifyIdToken(token)
+  //   .then((verifiedToken) => {
+  //     const uid = verifiedToken.uid;
+  //     const dbMarciUUID = db.collection('UserMarciPairing').doc(uid).get('UUID')
+  //     if(dbMarciUUID === marciUUID){
+  //       console.log('All systems green, ping back to marci now')
+  //       res.sendStatus(201);
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //     return res.sendStatus(400);
+  //   })
 })
 
 // Checks whether the user has permission to play the video
