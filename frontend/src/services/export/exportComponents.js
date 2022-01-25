@@ -4,3 +4,5 @@ export {default as ForgetPasswordCard} from '../../components/ForgetPasswordCard
 export {default as ButtonContainer} from '../../components/ButtonContainer';
 export {default as MenuCard} from '../../components/MenuCard';
 export {default as Username} from '../../components/Username';
+export {default as SignOutButton} from '../../components/SignOutButton';
+

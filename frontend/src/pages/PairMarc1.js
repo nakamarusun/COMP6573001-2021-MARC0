@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useAuth } from '../services/firebase/AuthContext';
 import { robot } from '../services/export/exportAssets'
 import { useNavigate } from 'react-router'
-import { Username } from '../services/export/exportComponents'
+import { Username, SignOutButton } from '../services/export/exportComponents'
 
 
 const PairMarc1 = () => {
@@ -35,7 +35,10 @@ const PairMarc1 = () => {
     }
 
     return (
-        <div className="w-full mt-20 text-center">
+        <div className="w-full mt-24 text-center">
+            <div className='absolute top-5 right-5 w-3/4 flex flex-row-reverse'>
+                <SignOutButton title="Sign Out" />
+            </div>
             <div className='w-3/4 flex flex-col items-center justify-center m-auto'>
                 <div className='w-10/12'>
                     <p className='text-xl'>Hey {<Username />}!&#9995;</p>
