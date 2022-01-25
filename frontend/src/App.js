@@ -1,6 +1,8 @@
 import { Login, Register, PairMarc1, MainMenu, Control, ProtectedRoute, ForgetPassword, Marc1IsPairedRoute, Videos, Notes } from './services/export/exportPages';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from "./services/firebase/AuthContext";
+import Recordings from './pages/Recordings';
+import RecordedVideo from './pages/RecordedVideo';
 
 function App() {
   return (
