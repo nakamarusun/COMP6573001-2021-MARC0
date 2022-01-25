@@ -1,12 +1,20 @@
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import { useAuth } from "../services/firebase/AuthContext";
+import { useNavigate } from 'react-router'
+import { useEffect } from "react";
 const ProtectedRoute = ({ children }) => {
 
+    const navigate = useNavigate()
     const { currentUser } = useAuth();
 
-    if (!currentUser) {
-        return <Navigate to="/" />;
-    }
+    useEffect(() =>{
+        if (!currentUser) {
+            navigate("/")
+        }
+        else {
+            navigate("/mainmenu")
+        }
+    }, [])
     return children;
 };
 

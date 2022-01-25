@@ -1,13 +1,20 @@
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../services/firebase/AuthContext";
+import { useEffect } from "react";
 
 const Marc1IsPairedRoute = ({ children }) => {
-    
+
+    const navigate = useNavigate()
     const { isPaired } = useAuth();
 
-    if (!isPaired){
-        <Navigate to="/pairMarc1"/>
-    }
+    useEffect(() =>{
+        if (!isPaired) {
+            navigate("/pairMarc1")
+        }
+        else {
+            navigate("/mainmenu")
+        }
+    }, [])
     return children
 }
  
