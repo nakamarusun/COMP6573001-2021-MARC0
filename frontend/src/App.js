@@ -71,8 +71,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          {/* <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} /> */}
           {/* use these for testing purposes and comment the protected routes */}
           {/* <Route path="/control" element={<Control />} />
           <Route path="/mainmenu" element={<MainMenu />} /> */}
