@@ -8,4 +8,6 @@ export {default as ForgetPassword} from '../../pages/ForgetPassword';
 export {default as Marc1IsPairedRoute} from '../../pages/Marc1IsPairedRoute';
 export {default as Notes} from '../../pages/Notes';
 export {default as Videos} from '../../pages/Videos';
+export {default as Recordings} from '../../pages/Recordings';
+
 

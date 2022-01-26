@@ -10,6 +10,7 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
     const [isPaired, setIsPaired] = useState(false)
+    const [currentUserUID, setCurrentUserUID] = useState()
 
     // sign up
     function signup(email, password, name) {
@@ -45,6 +46,7 @@ export function AuthProvider({ children }) {
         const unsubscribe = onAuthStateChanged(auth, user => {
             console.log(user)
             setCurrentUser(user)
+            setCurrentUserUID(user.uid)
             setLoading(false)
         })
 
@@ -55,6 +57,7 @@ export function AuthProvider({ children }) {
 
     const value = {
         currentUser,
+        currentUserUID,
         signup,
         signin,
         signout,
