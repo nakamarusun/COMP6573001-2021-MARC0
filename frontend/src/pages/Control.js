@@ -20,8 +20,8 @@ const Control = () => {
     if (currentUser !== null) {
       currentUser.getIdToken().then(token =>
         fetch('http://marc0.jasoncoding.com/api/stream', {
-            method: 'GET',
-            headers: {
+          method: 'GET',
+          headers: {
             authorization: 'Bearer ' + token,
             'Content-Type': 'application/json'
           }
@@ -59,10 +59,10 @@ const Control = () => {
         playRef.current = null;
       }
     };
-  }, [playRef]); 
+  }, [playRef]);
 
   // playRef.play();
-  
+
   async function handleUp(e) {
     e.preventDefault()
     if (currentUser !== null) {
@@ -135,6 +135,21 @@ const Control = () => {
     }
   }
 
+  async function handleListen(e) {
+    e.preventDefault()
+    if (currentUser !== null) {
+      const token = currentUser.getIdToken().then(token =>
+        fetch('http://marc0.jasoncoding.com/marci/listen', {
+          method: 'POST',
+          headers: {
+            authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
+          },
+        })
+      );
+    }
+  }
+
   return (
     <div className="w-full h-full min-h-screen ">
       <div className="max-w-5xl h-full w-4/5 m-auto text-center flex flex-col items-center justify-start">
@@ -142,7 +157,7 @@ const Control = () => {
           <video ref={vidRef} className="video-js vjs-big-play-centered" />
         </div>
         <div className="md:flex md:flex-col ">
-          <div className="flex flex-row justify-center space-x-5 mt-2 " >
+          <div className="flex flex-row justify-center items-center space-x-5 mt-2 " >
             <div onClick={() => {
               alert("Recording started!")
               // fetch(`http://marc0.jasoncoding.com/stream/control/record/start?app=marc1live&name=${streamToken}&rec=reccam`)
@@ -153,12 +168,14 @@ const Control = () => {
               // fetch(`http://marc0.jasoncoding.com/stream/control/record/stop?app=marc1live&name=${streamToken}&rec=reccam`)
               //   .then(() => {alert("Recording stopped!")})
             }}><i class="fas fa-stop text-4xl md:text-6xl lg:text-4xl"></i></div>
+            <div onClick={handleListen} className='bg-black rounded-lg text-white p-2 text-sm'>Listen</div>
+
           </div>
-          {/*turnL /* up /* turn right*/ }
-            <div className="flex felx-row justify-center">
-              <div><i class="fas fa-angle-double-left text-6xl  text-green-500 md:text-8xl lg:text-7xl mt-2 mr-4 "></i></div>
-          <div><i onClick={handleUp} class="fas fa-caret-square-up text-6xl md:text-8xl lg:text-7xl pb-4 mt-2"></i></div>
-          <div><i class="fas fa-angle-double-right text-6xl  text-orange-500 md:text-8xl lg:text-7xl mt-2 ml-4 "></i></div>
+          {/*turnL /* up /* turn right*/}
+          <div className="flex felx-row justify-center">
+            <div><i class="fas fa-angle-double-left text-6xl  text-green-500 md:text-8xl lg:text-7xl mt-2 mr-4 "></i></div>
+            <div><i onClick={handleUp} class="fas fa-caret-square-up text-6xl md:text-8xl lg:text-7xl pb-4 mt-2"></i></div>
+            <div><i class="fas fa-angle-double-right text-6xl  text-orange-500 md:text-8xl lg:text-7xl mt-2 ml-4 "></i></div>
 
           </div>
           <div className="flex flex-row justify-center ">

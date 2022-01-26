@@ -20,3 +20,21 @@ content does not reach the bottom */
     font-style: normal;
     font-weight: 900;
 }
+
+.notes-table thead tr{
+    font-weight: bold;
+    border-bottom: 1px solid #d1d1d1;
+  }
+  .notes-table tbody tr{
+    color: #000000;
+    border-bottom: 1px solid #d1d1d1;
+  }
+  .notes-table tbody tr:nth-of-type(even){
+    background-color: white;
+  }
+  .notes-table tbody tr:last-of-type{
+    border-bottom: 6px solid #d1d1d1;
+  }
+  .notes-table th, .notes-table td{
+    padding: 12px 15px;
+  }

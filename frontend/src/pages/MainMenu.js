@@ -22,6 +22,11 @@ const MainMenu = () => {
             icon: 'fas fa-clipboard',
             desc: 'To access the notes marc1 made, you can click this notes card.',
         },
+        {
+            title: 'Recordings',
+            icon: 'fas fa-clipboard',
+            desc: 'To access the notes marc1 made, you can click this notes card.',
+        },
     ]
 
     return (

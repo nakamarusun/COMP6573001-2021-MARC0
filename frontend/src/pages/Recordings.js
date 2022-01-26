@@ -31,7 +31,7 @@ const Recordings = () => {
             return <div 
             className="flex flex-row items-center h-24 px-4 py-2 hover:bg-gray-200 active:bg-gray-400"
             onClick={() => {
-                navigate("/recordings/hjufkkssadlfs");
+                navigate("/mainmenu/recordings/hjufkkssadlfs");
             }}>
                 <i className="fas fa-film text-5xl mr-4"></i>
                 <div className="h-full flex flex-col justify-start space-y-2">
