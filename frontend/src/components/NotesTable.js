@@ -10,33 +10,38 @@ const NotesTable = () => {
     const notesDataIsEmpty = notesData === ""
 
     async function getNotesData() {
-        const docRef = doc(db, "UserNotes", currentUserUID)
+        const docRef = doc(db, "UserNotes2", currentUserUID)
         const docSnap = await getDoc(docRef)
+        let tempNotesData = []
         if (docSnap.exists()) {
-            setNotesData(docSnap.data())
+            for (const i in docSnap.data()){
+                tempNotesData.push(docSnap.data()[i])
+            }
+            setNotesData(tempNotesData)
+            console.log(notesData)
         }
         else{
             console.log("No data found")
+            setNotesData(tempNotesData)
         }
     }
 
-    useEffect(() =>[
+    useEffect(() => {
         getNotesData()
-    ], [])
+    }, [])
 
     return (
-
-        <table className="border-collapse w-3/4 rounded-md overflow-hidden shadow">
+        <table className="notes-table border-collapse w-1/2 rounded-md overflow-hidden shadow">
             <thead>
                 <tr>
                     <th>Notes</th>
                 </tr>
             </thead>
             <tbody>
-                {!notesData ? notesData.map(row => <tr>
+                {!notesDataIsEmpty ? notesData.map(row => <tr>
                     {
                         <>
-                            <td>{row.content}</td>
+                            <td>{row}</td>
                         </>
                     }
                 </tr>) : null}
