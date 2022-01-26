@@ -23,7 +23,7 @@ services:
   backend-service:
     build: ./backend
     container_name: backend-cont
-    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_7
+    image: us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_10
     secrets:
       - "g_secret"
     environment:
