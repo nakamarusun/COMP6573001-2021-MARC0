@@ -33,7 +33,7 @@ const Recordings = () => {
             onClick={() => {
                 navigate("/recordings/hjufkkssadlfs");
             }}>
-                <i class="fas fa-film text-5xl mr-4"></i>
+                <i className="fas fa-film text-5xl mr-4"></i>
                 <div className="h-full flex flex-col justify-start space-y-2">
                     <h1 className="font-bold text-lg">VIDEO_NAME</h1>
                     <h2 className="text-sm text-gray-600">VIDEO_DATE</h2>

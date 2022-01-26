@@ -20,7 +20,7 @@ const PairMarc1 = () => {
         // get UUID to pair marci here
         if (currentUser !== null) {
             const token = currentUser.getIdToken().then(token =>
-                fetch('http://marc0.jasoncoding.com/', {
+                fetch('http://marc0.jasoncoding.com/user/setup', {
                     method: 'POST',
                     headers: {
                         authorization: 'Bearer ' + token,
@@ -33,6 +33,7 @@ const PairMarc1 = () => {
                     }
                 }).catch(err => {
                     console.log(err)
+                    setError('Failed to pair with Marc1')
                 })
             );
         }
@@ -59,7 +60,7 @@ const PairMarc1 = () => {
     }
 
     return (
-        <div className="w-full mt-24 text-center">
+        <div className="w-full mt-20 text-center">
             <div className='absolute top-5 right-5 w-3/4 flex flex-row-reverse'>
                 <SignOutButton title="Sign Out" />
             </div>
@@ -73,7 +74,7 @@ const PairMarc1 = () => {
                     <form className="" onSubmit={handleSubmit}>
                         <input className="w-3/4 shadow-sm p-2 ring-1 ring-gray-200 rounded" type="password" ref={uuidRef} placeholder="M4RC1 UUID" ref={marciUID} required />
                         {error && <div className="mt-3">{error}</div>}
-                        <button disabled={loading} className='w-3/4 bg-blue-crayola text-cultured p-2 rounded-md mt-6' type='submit' value="submit">Submit</button>
+                        <button disabled={loading} className='w-3/4 bg-blue-crayola text-cultured p-2 rounded-md mt-3' type='submit' value="submit">Submit</button>
                     </form>
                 </div>
             </div>

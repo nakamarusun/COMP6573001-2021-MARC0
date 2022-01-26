@@ -1,34 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from '../services/firebase/AuthContext';
-
+import { doc, getDoc } from "firebase/firestore";
+import { db } from '../services/firebase/firebase-config';
 
 const NotesTable = () => {
 
-    const { currentUser } = useAuth()
-    
-    useEffect(() => {
-        if (currentUser !== null) {
-            const token = currentUser.getIdToken().then(token =>
-                // To be replace with api.chess-webapp.com in deployment
-                fetch('https://api.chess-webapp.com/user/history', {
-                    method: 'GET',
-                    headers: {
-                        authorization: 'Bearer ' + token
-                    }
-                })
-                    .then(res => res.json())
-                    .then(
-                        // List from firebase is here, use it as you will
-                        data => {
-                            console.log(data)
-                            console.log(data.history)  // data is an object that has the history property which
-                            // contains array of objects
-                            setHistoryData(data.history) //data.history array of objects
-                        }
-                    )
-            );
+    const { currentUser, currentUserUID } = useAuth()
+    const [notesData, setNotesData] = useState([])
+    const notesDataIsEmpty = notesData === ""
+
+    async function getNotesData() {
+        const docRef = doc(db, "UserNotes", currentUserUID)
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+            setNotesData(docSnap.data())
         }
-    })
+        else{
+            console.log("No data found")
+        }
+    }
+
+    useEffect(() =>[
+        getNotesData()
+    ], [])
 
     return (
 
@@ -39,12 +33,10 @@ const NotesTable = () => {
                 </tr>
             </thead>
             <tbody>
-                {!historyDataIsEmpty ? historyData.map(row => <tr>
+                {!notesData ? notesData.map(row => <tr>
                     {
                         <>
-                            <td>{row.enemy}</td>
-                            <td>{row.result}</td>
-                            <td>{row.side}</td>
+                            <td>{row.content}</td>
                         </>
                     }
                 </tr>) : null}

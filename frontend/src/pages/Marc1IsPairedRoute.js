@@ -11,9 +11,6 @@ const Marc1IsPairedRoute = ({ children }) => {
         if (!isPaired) {
             navigate("/pairMarc1")
         }
-        else {
-            navigate("/mainmenu")
-        }
     }, [])
     return children
 }

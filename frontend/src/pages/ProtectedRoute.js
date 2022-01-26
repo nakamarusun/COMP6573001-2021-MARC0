@@ -10,9 +10,6 @@ const ProtectedRoute = ({ children }) => {
         if (!currentUser) {
             navigate("/")
         }
-        else {
-            navigate("/mainmenu")
-        }
     }, [])
     return children;
 };

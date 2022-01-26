@@ -1,6 +1,10 @@
+import NotesTable from "../components/NotesTable";
+
 const Notes = () => {
     return (  
-        <div className="bruh"></div>
+        <div className="min-h-screen mt-8">
+            <NotesTable/>
+        </div>
     );
 }
  
