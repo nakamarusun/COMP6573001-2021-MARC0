@@ -9,7 +9,16 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* <Route path="/mainmenu"
+          <Route path="/pairMarc1"
+            element={
+              <ProtectedRoute>
+                <Marc1IsPairedRoute>
+                  <PairMarc1 />
+                </Marc1IsPairedRoute>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/mainmenu"
             element={
               <ProtectedRoute>
                 <Marc1IsPairedRoute>
@@ -27,20 +36,20 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/mainmenu/Videos"
+          <Route path="/mainmenu/recordings/:id"
             element={
               <ProtectedRoute>
                 <Marc1IsPairedRoute>
-                  <Videos />
+                  <RecordedVideo />
                 </Marc1IsPairedRoute>
               </ProtectedRoute>
             }
           />
-          <Route path="/pairMarc1"
+          <Route path="/mainmenu/Recordings"
             element={
               <ProtectedRoute>
                 <Marc1IsPairedRoute>
-                  <PairMarc1 />
+                  <Recordings />
                 </Marc1IsPairedRoute>
               </ProtectedRoute>
             }
@@ -52,7 +61,7 @@ function App() {
                   <Control />
                 </Marc1IsPairedRoute>
               </ProtectedRoute>
-            } /> */}
+            } />
           <Route path="/"
             element={
               <ProtectedRoute>
@@ -73,9 +82,13 @@ function App() {
           />
           {/* use these for testing purposes and comment the protected routes */}
           {/* <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} /> */}
-          <Route path="/mainmenu/control" element={<Control />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/control" element={<Control />} />
+          <Route path="/pairMarc1" element={<PairMarc1 />} />
           <Route path="/mainmenu" element={<MainMenu />} />
+          <Route path="/mainmenu/Recordings" element={<Recordings />} />
+          <Route path="/mainmenu/Notes" element={<Notes />} />
+          <Route path="/mainmenu/recordings/:id" element={<RecordedVideo />} /> */}
         </Routes>
       </Router>
     </AuthProvider>
