@@ -4,6 +4,7 @@ const admin = require('../admin')
 const router = express.Router()
 const auth = require('../middleware/auth')
 const marciSocket = require('../middleware/marciSocket')
+const db = admin.firestore()
 
 router.use(express.json())
 router.use(express.urlencoded({extended : true}))
