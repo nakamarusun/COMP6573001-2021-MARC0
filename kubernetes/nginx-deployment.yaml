@@ -28,7 +28,7 @@ spec:
         io.kompose.service: nginx
     spec:
       containers:
-        - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1_9"
+        - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/nginx:v1_10"
           imagePullPolicy: IfNotPresent
           name: nginx
           ports:

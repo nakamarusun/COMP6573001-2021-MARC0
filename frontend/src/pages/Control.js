@@ -85,7 +85,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://localhost:5000/marci/move', {
+        fetch('http://marc0.jasoncoding.com/marci/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -103,7 +103,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://localhost:5000/marci/move', {
+        fetch('http://marc0.jasoncoding.com/marci/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -121,7 +121,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://localhost:5000/marci/move', {
+        fetch('http://marc0.jasoncoding.com/marci/move', {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -144,12 +144,14 @@ const Control = () => {
         <div className="md:flex md:flex-col ">
           <div className="flex flex-row justify-center space-x-5 mt-2 " >
             <div onClick={() => {
-              fetch(`http://marc0.jasoncoding.com/stream/control/record/start?app=marc1live&name=${streamToken}`)
-                .then(() => {alert("Recording started!")})
+              alert("Recording started!")
+              // fetch(`http://marc0.jasoncoding.com/stream/control/record/start?app=marc1live&name=${streamToken}&rec=reccam`)
+              //   .then(() => {alert("Recording started!")})
             }}><i class="fas fa-play-circle text-4xl md:text-6xl lg:text-4xl"></i></div>
             <div onclick={() => {
-              fetch(`http://marc0.jasoncoding.com/stream/control/record/stop?app=marc1live&name=${streamToken}`)
-                .then(() => {alert("Recording stopped!")})
+              alert("Recording stopped!")
+              // fetch(`http://marc0.jasoncoding.com/stream/control/record/stop?app=marc1live&name=${streamToken}&rec=reccam`)
+              //   .then(() => {alert("Recording stopped!")})
             }}><i class="fas fa-stop text-4xl md:text-6xl lg:text-4xl"></i></div>
           </div>
           {/*turnL /* up /* turn right*/ }
