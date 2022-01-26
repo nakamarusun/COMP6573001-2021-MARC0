@@ -16,7 +16,6 @@ router.post('/move', [
   const io = req.app.get('socketio')
   io.to(res.locals.marciSocketID).emit('move', req.body.orientation)
   res.locals.marciSocket.once('moveStatus', function(statusCode){
-    
     res.sendStatus(statusCode)
   })
 })
