@@ -16,7 +16,7 @@ spec:
         service: backend
     spec:
       containers:
-        - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_7"
+        - image: "us-central1-docker.pkg.dev/marc1robot/marc0-repo/backend:v1_9"
           imagePullPolicy: Always
           name: backend
           ports:
