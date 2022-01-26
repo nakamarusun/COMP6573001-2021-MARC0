@@ -20,6 +20,11 @@ app.use('/user', routes.user)
 app.use('/videos', routes.videos);
 app.use('/marci', routes.marciCommand);
 
+// // TODO: Evilness
+// app.get("/image", (req, res) => {
+//   return image;
+// });
+
 // Attach listeners when someone connects
 
 const PORT = process.env.PORT || 5000;
