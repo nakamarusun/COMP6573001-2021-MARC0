@@ -112,7 +112,6 @@ app.get("/save_video", (req, res) => {
           [ nanoid() ]: {
             name: file.name,
             date: fs.statSync(vidPath).birthtime,
-            path: file.path,
             bucket: process.env.GCLOUD_STORAGE_NAME,
           }
         }

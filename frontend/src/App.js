@@ -36,7 +36,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/mainmenu/recordings/:id"
+          <Route path="/mainmenu/recordings/:videoId"
             element={
               <ProtectedRoute>
                 <Marc1IsPairedRoute>

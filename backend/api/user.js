@@ -52,7 +52,7 @@ router.post('/setup', [
     UUID : marciUID
   } 
   const marci = {
-    uid : UUID
+    uid : userUID
   }
 
   await marciRef.set(marci)

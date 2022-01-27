@@ -3,6 +3,7 @@ import { useAuth } from '../services/firebase/AuthContext';
 import { ButtonContainer } from '../components/ButtonContainer'
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
+import { host } from '../config';
 
 // To get video and audio from browser
 const getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -19,7 +20,7 @@ const Control = () => {
     // Start stream on marc1
     if (currentUser !== null) {
       currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com/api/stream', {
+        fetch(`${host}/api/stream`, {
           method: 'GET',
           headers: {
             authorization: 'Bearer ' + token,
@@ -67,7 +68,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com/marci/listen', {
+        fetch(`${host}/marci/listen`, {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -85,7 +86,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com/marci/move', {
+        fetch(`${host}/marci/move`, {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -103,7 +104,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com/marci/move', {
+        fetch(`${host}/marci/move`, {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -121,7 +122,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com/marci/move', {
+        fetch(`${host}/marci/move`, {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -139,7 +140,7 @@ const Control = () => {
     e.preventDefault()
     if (currentUser !== null) {
       const token = currentUser.getIdToken().then(token =>
-        fetch('http://marc0.jasoncoding.com/marci/listen', {
+        fetch(`${host}/marci/listen`, {
           method: 'POST',
           headers: {
             authorization: 'Bearer ' + token,
@@ -160,12 +161,12 @@ const Control = () => {
           <div className="flex flex-row justify-center items-center space-x-5 mt-2 " >
             <div onClick={() => {
               alert("Recording started!")
-              // fetch(`http://marc0.jasoncoding.com/stream/control/record/start?app=marc1live&name=${streamToken}&rec=reccam`)
+              // fetch(`${host}/stream/control/record/start?app=marc1live&name=${streamToken}&rec=reccam`)
               //   .then(() => {alert("Recording started!")})
             }}><i class="fas fa-play-circle text-4xl md:text-6xl lg:text-4xl"></i></div>
             <div onclick={() => {
               alert("Recording stopped!")
-              // fetch(`http://marc0.jasoncoding.com/stream/control/record/stop?app=marc1live&name=${streamToken}&rec=reccam`)
+              // fetch(`${host}/stream/control/record/stop?app=marc1live&name=${streamToken}&rec=reccam`)
               //   .then(() => {alert("Recording stopped!")})
             }}><i class="fas fa-stop text-4xl md:text-6xl lg:text-4xl"></i></div>
             <div onClick={handleListen} className='bg-black rounded-lg text-white p-2 text-sm'>Listen</div>

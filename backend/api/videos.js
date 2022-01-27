@@ -38,12 +38,11 @@ router.get("/video/:id", (req, res) => {
   videoRef
     .get()
     .then((dat) => {
+
       if (!dat.exists) return res.sendStatus(404);
-      const { videos } = dat.data();
+      const result = dat.data();
 
-      if (!videos) return res.sendStatus(404);
-
-      const item = videos[id];
+      const item = result[id];
       if (!item) return res.sendStatus(404);
 
       // Get authenticated url
@@ -62,8 +61,6 @@ router.get("/video/:id", (req, res) => {
             date: item.date
           })
         })
-
-      return res.send(item);
     })
 });
 

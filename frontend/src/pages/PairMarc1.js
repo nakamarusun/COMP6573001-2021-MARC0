@@ -3,6 +3,7 @@ import { useAuth } from '../services/firebase/AuthContext';
 import { robot } from '../services/export/exportAssets'
 import { useNavigate } from 'react-router'
 import { Username, SignOutButton } from '../services/export/exportComponents'
+import { host } from '../config';
 
 
 const PairMarc1 = () => {
@@ -20,7 +21,7 @@ const PairMarc1 = () => {
         // get UUID to pair marci here
         if (currentUser !== null) {
             const token = currentUser.getIdToken().then(token =>
-                fetch('http://marc0.jasoncoding.com/user/setup', {
+                fetch(`${host}/user/setup`, {
                     method: 'POST',
                     headers: {
                         authorization: 'Bearer ' + token,
